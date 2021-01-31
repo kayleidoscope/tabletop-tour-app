@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // import {MemoryRouter} from 'react-router-dom';
-import App from './App';
+import LogIn from './log-in';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(
     // <MemoryRouter>
-      <App />,
+      <LogIn />,
     // </MemoryRouter>,
       div
     );

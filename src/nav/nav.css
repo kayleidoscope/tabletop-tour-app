@@ -1,0 +1,9 @@
+nav ul {
+    display: flex;
+    padding: 0;
+    justify-content: space-evenly
+}
+
+nav ul li {
+    list-style-type: none;
+}
