@@ -1,18 +1,11 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import Context from '../Context'
-import './nav.css'
+import './Nav.css'
 
 class Nav extends Component {
     static contextType = Context
-
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         userId: this.context?.currentUserId || null
-    //     }
-    //   }
-
+    
     render() {
         let userLoggedIn;
         if (this.context.currentUserId) {

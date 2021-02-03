@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 // import Nav from '../nav/Nav';
-import './log-in.css'
+import './SignUp.css'
 
-class LogIn extends Component {
+class SignUp extends Component {
 
     render() {
 
         return (
             <section className="log-in-section">
-            <h2>Log in</h2>
+            <h2>Sign Up</h2>
             <p>Enter your credentials below.</p>
             <form>
                  <label htmlFor="username">Username: </label>
@@ -28,4 +28,4 @@ class LogIn extends Component {
     }
 }
 
-export default LogIn;
+export default SignUp;

@@ -4,8 +4,6 @@ import SearchForm from '../SearchForm/SearchForm'
 import dummyData from '../dummyData'
 import GamesList from '../GamesList/GamesList'
 
-//This should be broken up into more components than this
-
 class MyGames extends Component {
 
     render() {

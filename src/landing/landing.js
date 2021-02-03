@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import Context from '../Context'
-import './landing.css'
-import LogIn from '../log-in/log-in'
-import SignUp from '../sign-up/sign-up'
+import './Landing.css'
+import LogIn from '../LogIn/LogIn'
+import SignUp from '../SignUp/SignUp'
 
 class Landing extends Component {
     static contextType = Context

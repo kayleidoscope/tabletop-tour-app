@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import './heading.css'
-import Nav from '../nav/nav'
+import './Heading.css'
+import Nav from '../Nav/Nav'
 
 
 class Heading extends Component {
@@ -11,7 +11,6 @@ class Heading extends Component {
             <header>
                 <Nav />
                 <h1>Tabletop Tour</h1>
-                {/* {isNav && <Nav />} */}
             </header>
         )
     }

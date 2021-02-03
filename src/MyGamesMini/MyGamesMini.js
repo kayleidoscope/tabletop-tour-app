@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import './MyGamesMini.css'
 
-//This should be broken up into more components than this
-
 class MyGames extends Component {
 
     render() {
