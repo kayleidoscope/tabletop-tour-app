@@ -12,7 +12,7 @@ class MyGames extends Component {
 
         return (
             <li className="my-games-mini">
-                <img src={this.props.gameData.images.small} />
+                <img src={this.props.gameData.images.small} alt={`${this.props.gameData.name} packaging`}/>
                 <h5>{this.props.gameData.name}</h5>
                 <div className="icons">
                     {havePlayed && <p>Played</p>}

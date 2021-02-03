@@ -65,7 +65,7 @@ class Game extends Component {
                     <li>Number of players: {gameData.min_players} to {gameData.max_players} people</li>
                     <li>Minimum age: {gameData.min_age}</li>
                     <li>Playtime: {gameData.min_playtime} to {gameData.max_playtime} minutes</li>
-                    <li><a href={gameData.rules_url} target="_blank">Rules</a></li>
+                    <li><a href={gameData.rules_url} target="_blank" rel="noreferrer">Rules</a></li>
                 </ul>
                 <p>{gameData.description_preview}</p>
                 <h3>User reviews</h3>

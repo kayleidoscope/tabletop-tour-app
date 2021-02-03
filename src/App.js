@@ -9,7 +9,6 @@ import Home from './home/home'
 import MyGames from './my-games/my-games'
 import Game from './game/game'
 import Discover from './Discover/Discover'
-import config from './config'
 import dummyData from './dummyData'
 import Footer from './Footer/Footer'
 

@@ -31,7 +31,7 @@ class GamesItem extends Component {
                         <li>Number of players: {gameData.min_players} to {gameData.max_players} people</li>
                         <li>Minimum age: {gameData.min_age}</li>
                         <li>Playtime: {gameData.min_playtime} to {gameData.max_playtime} minutes</li>
-                        <li><a href={gameData.rules_url} target="_blank">Rules</a></li>
+                        <li><a href={gameData.rules_url} target="_blank" rel="noreferrer">Rules</a></li>
                         {/* <li>Categories: {gameData.categories}</li> */}
                     </ul>
                 </div>
