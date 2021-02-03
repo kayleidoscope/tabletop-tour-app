@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './home.css'
+import './Home.css'
 import Review from '../Review/Review'
 import dummyData from '../dummyData'
 import {Link} from 'react-router-dom';
