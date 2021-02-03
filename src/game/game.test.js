@@ -7,7 +7,7 @@ it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(
     // <MemoryRouter>
-      <Game />,
+      <Game match={{params: {gameId: 1}}}/>,
     // </MemoryRouter>,
       div
     );

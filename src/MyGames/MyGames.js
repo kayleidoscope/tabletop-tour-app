@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './my-games.css'
+import './MyGames.css'
 import SearchForm from '../SearchForm/SearchForm'
 import dummyData from '../dummyData'
 import GamesList from '../GamesList/GamesList'
