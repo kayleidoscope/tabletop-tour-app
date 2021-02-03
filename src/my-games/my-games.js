@@ -1,43 +1,46 @@
 import React, {Component} from 'react';
 import './my-games.css'
+import SearchForm from '../SearchForm/SearchForm'
+import dummyData from '../dummyData'
+import GamesList from '../GamesList/GamesList'
 
 //This should be broken up into more components than this
 
 class MyGames extends Component {
 
     render() {
+        const myGames = dummyData[0].users_games
+        const gameData = dummyData[0].games
+
+        let gamesCloset = myGames.filter(game => game.have_played)
+        let dreamGames = myGames.filter(game => !game.have_played)
+        
+        gamesCloset = gamesCloset.map((game, i) => {
+            const thisGameData = gameData.find(game => game.id === gamesCloset[i].game_id)
+            return (
+                thisGameData
+            )
+        })
+
+        dreamGames = dreamGames.map((game, i) => {
+            const thisGameData = gameData.find(game => game.id === dreamGames[i].game_id)
+            return (
+                thisGameData
+            )
+        })
 
         return (
             <section>
                 <h2>My Games Log</h2>
                 <h3>Filter</h3>
-                <form>
-                    <label htmlFor="genre">Genre: </label>
-                    <select name="genre" id="genre">
-                        <option value="0">All</option>
-                    </select>
-                    <label htmlFor="players">Minimum players: </label>
-                    <select name="players" id="players">
-                        <option value="0">1</option>
-                    </select>
-                    <label htmlFor="age">Age range: </label>
-                    <select name="age" id="age">
-                        <option value="0">All</option>
-                    </select>
-                    <label htmlFor="genre">Order by: </label>
-                    <select name="players" id="players">
-                        <option value="0">My rating</option>
-                    </select>
-                    <input type="submit" value="Submit"/>
-                </form>
+                <SearchForm />
                 <h3>My games closet</h3>
                 <ul>
-                    <li>All games the player has played, ordered by the user's ratings by default</li>
-                    <li>There'll be some indication showing which games the user owns.</li>
+                    <GamesList games={gamesCloset} myData={myGames} descriptions={false}/>
                 </ul>
                 <h3>My dream games</h3>
                 <ul>
-                    <li>All games the player wants to play someday</li>
+                    <GamesList games={dreamGames} myData={myGames} descriptions={false}/>
                 </ul>
             </section>
         )

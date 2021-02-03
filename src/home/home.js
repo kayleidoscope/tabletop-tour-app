@@ -1,26 +1,49 @@
 import React, {Component} from 'react';
 import './home.css'
+import Review from '../Review/Review'
+import dummyData from '../dummyData'
+import {Link} from 'react-router-dom';
+import MyGamesMini from '../MyGamesMini/MyGamesMini'
 
 class Home extends Component {
 
     render() {
+        const reviews = dummyData[0].reviews
+
+        const reviewComponents = reviews.map(review => {
+            return (
+                <Review reviewData={review} key={review.id} />
+            )
+        })
+
+        const usersGames = dummyData[0].users_games
+        const gameData = dummyData[0].games
+
+        const miniMyGames = usersGames.map((game, i) => {
+            const thisGameData = gameData.find(game => game.id === usersGames[i].game_id)
+            return (
+                <MyGamesMini 
+                    key={`${usersGames[i].user_id}-${usersGames[i].game_id}`}
+                    gameData = {thisGameData}
+                    usersGamesData = {game}
+                />
+            )
+        })
 
         return (
-            <section>
+            <section className="home">
                 <h2>Welcome, user!</h2>
                 <h3>Games</h3>
-                <h4>Find a game</h4>
-                <form>
-                    <label htmlFor="username">Search: </label>
-                    <input type="text" id="username" name="username"/>
-                    <input type="submit" value="Submit"/>
-                </form>
-                <h4>My games log</h4>
-                <ul>
-                    <li>First 10 games, ranked by some parameter</li>
+                <Link to="/my-games">
+                    <h4>My games log</h4>
+                </Link>
+                <ul className="mini-games">
+                    {miniMyGames}
                 </ul>
                 <h3>My reviews</h3>
-                <p>Ticket to Ride is the best game ever.</p>
+                <ul>
+                    {reviewComponents}
+                </ul>
             </section>
         )
     }

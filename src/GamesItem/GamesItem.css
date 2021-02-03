@@ -1,0 +1,26 @@
+.gamesItem ul {
+    list-style-type: none
+}
+
+.gamesItem {
+    margin: 10px;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.gamesItem .imageAndInfo {
+    display: flex;
+}
+
+.gamesItem img {
+    margin: 5px
+}
+
+.gamesItem .on {
+    color: green;
+}
+
+.gamesItem .nodes {
+    display: flex;
+    justify-content: space-around;
+}

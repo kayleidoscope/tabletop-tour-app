@@ -15,7 +15,7 @@ class LogIn extends Component {
                  <input type="text" id="username" name="username"/>
                  <br/>
                 <input type="submit" value="Submit"/>
-                <button onClick={e => this.props.handleClickCancel}>
+                <button onClick={this.props.handleCancelButton}>
                     Cancel
                 </button>
                 {/* {this.state.error && (

@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
-// import Nav from '../nav/Nav';
+import Context from '../Context'
 import './landing.css'
 import LogIn from '../log-in/log-in'
 import SignUp from '../sign-up/sign-up'
 
 class Landing extends Component {
+    static contextType = Context
+
     state = {
         //when true, the logIn component will render
         logInBox: false,
@@ -34,7 +36,6 @@ class Landing extends Component {
     }
 
     clickCancel = (e) => {
-        e.preventDefault();
         this.setState(
             {
                 logInBox: false,
@@ -47,7 +48,7 @@ class Landing extends Component {
     render() {
 
         return (
-            <section>
+            <section className="landing">
                 <p>What Good Reads does for books, we do for games!</p>
                 <p>Keep track of the tabletop games you've played.</p>
                 <p>Mark the games you want to remember to track down in the future.</p>
@@ -56,7 +57,7 @@ class Landing extends Component {
                     <div className="buttons">
                         <button onClick={this.logInTrue}>Log In</button>
                         <button onClick={this.signUpTrue}>Sign Up</button>
-                        <button>Log In as Demo User</button>
+                        <button onClick={this.context.demoLogIn}>Log In as Demo User</button>
                     </div>
                 }
                 {this.state.logInBox && <LogIn handleCancelButton={this.clickCancel}/>}

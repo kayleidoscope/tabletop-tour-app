@@ -2,8 +2,8 @@ footer {
     border-top: solid 1px  black;
     text-align: center;
     margin-top: 15px;
-    position: fixed;
+    /* position: fixed;
     bottom:0;
     left: 0;
-    right:0;
+    right:0; */
 }
