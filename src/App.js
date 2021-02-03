@@ -20,7 +20,6 @@ class App extends Component {
   }
 
   demoLogIn = (e) => {
-    console.log("demoLogIn ran")
     this.setState({
       currentUserId: dummyData[0].users[0].id,
       currentUserName: dummyData[0].users[0].username
@@ -67,12 +66,12 @@ class App extends Component {
               component={Discover}
             />
             <Route
-              path="/home"
-              component={Home}
-            />
-            <Route
               path="/game/:id"
               component={Game}
+            />
+            <Route
+              path="/home"
+              component={Home}
             />
             <Route
               path="/my-games"

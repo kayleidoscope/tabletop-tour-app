@@ -51,13 +51,13 @@ class Game extends Component {
                 <h2>{gameData.name}</h2>
                 <form>
                     <input type="checkbox" id="own" name="own" />
-                    <label for="own">I've played this</label>
+                    <label htmlFor="own">I've played this</label>
                     <br />
                     <input type="checkbox" id="love" name="love" />
-                    <label for="love">I love this</label>
+                    <label htmlFor="love">I love this</label>
                     <br />
                     <input type="checkbox" id="want" name="want" />
-                    <label for="want">I want to play this</label>
+                    <label htmlFor="want">I want to play this</label>
                 </form>
                 <img src={gameData.images.medium} alt={`${gameData.name} packaging`} />
                 <ul>

@@ -50,9 +50,9 @@ class Landing extends Component {
         return (
             <section className="landing">
                 <p>What Good Reads does for books, we do for games!</p>
-                <p>Keep track of the tabletop games you've played.</p>
-                <p>Mark the games you want to remember to track down in the future.</p>
-                <p>And write reviews!</p>
+                <p>Find and review games, with or without an account.</p>
+                <p>Or sign up for a free account below to keep track of the tabletop games you've played, or that you want to play in the future.</p>
+                <p>Get started by clicking "Discover" above to find games, or create an account to start tracking games you love.</p>
                 {this.state.buttonsOn && 
                     <div className="buttons">
                         <button onClick={this.logInTrue}>Log In</button>

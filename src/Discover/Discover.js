@@ -15,7 +15,8 @@ class Discover extends Component {
             maxPlaytime: null,
             categories: "",
             age: null,
-            games: []
+            games: [],
+            submitSent: false
         }
     }
 
@@ -95,9 +96,12 @@ class Discover extends Component {
                 }
                 return res.json()
             })
-            .then(responseJson => this.setState({
-                games: responseJson.games
-            }))
+            .then(responseJson => {
+                this.setState({
+                    games: responseJson.games,
+                    submitSent: true
+                })
+            })
             .catch(error => {
                 console.error(error)
             })
@@ -116,7 +120,9 @@ class Discover extends Component {
                     minPlaytimeChanged={this.minPlaytimeChanged}
                     maxPlaytimeChanged={this.maxPlaytimeChanged}
                 />
-                {this.state.games.length > 0 && <GamesList games={this.state.games} descriptions={true}/>}
+                {this.state.submitSent && <h3>Search Results</h3>}
+                {this.state.submitSent && <GamesList games={this.state.games} descriptions={true}/>}
+                {this.state.submitSent && this.state.games.length === 0 && <p>No games found. Try different search parameters.</p>}
             </section>
         )
     }

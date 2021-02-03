@@ -24,7 +24,6 @@ class GamesList extends Component {
         })
         return (
             <section className="gamesList">
-                <h2>Search Results</h2>
                 <ul>
                     {gamesLis}
                 </ul>
