@@ -93,7 +93,7 @@ class Game extends Component {
             original_image: this.state.gameData.images.original
         }
 
-        fetch(`${config.API_ENDPOINT}api/games`, {
+        return fetch(`${config.API_ENDPOINT}api/games`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -116,44 +116,49 @@ class Game extends Component {
             })
     }
 
-    handleLovedChange = e => {
+    addNewUserDataLove = (boolean) => {
+        const newGameDataEntry = {
+            user_id: this.context.currentUserId, 
+            game_id: this.props.match.params.id,
+            user_loved: boolean
+        }
+        return fetch(`${config.API_ENDPOINT}api/users-games`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${config.API_TOKEN}`
+            },
+            body: JSON.stringify(newGameDataEntry)
+        })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(res.status)
+                }
+                return res.json()
+            })
+            .then(responseJson => {
+                this.context.userGameAdded(responseJson)
+                return
+            })
+            .catch(error => {
+                console.error(error)
+            })
+    }
+
+    handleLovedChange = async(e) => {
         this.setState({
             loved: e.currentTarget.checked
         })
 
-        const gameData = this.context.userGames.find(game => game.game_id === this.props.match.params.id)
-        
-        if(!gameData) {
+        const userGameData = this.context.userGames.find(game => game.game_id === this.props.match.params.id)
+        const bool = e.currentTarget.checked
+
+        if(!userGameData) {
             const localGameData = this.context.allGamesData.find(game => game.id === this.props.match.params.id)
             if(!localGameData) {
-                this.addLocalGameData()
+                await this.addLocalGameData()
             }
-            const newGameDataEntry = {
-                user_id: this.context.currentUserId, 
-                game_id: this.props.match.params.id,
-                user_loved: e.currentTarget.checked
-            }
-            fetch(`${config.API_ENDPOINT}api/users-games`, {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json',
-                    'Authorization': `Bearer ${config.API_TOKEN}`
-                },
-                body: JSON.stringify(newGameDataEntry)
-            })
-                .then(res => {
-                    if (!res.ok) {
-                        throw new Error(res.status)
-                    }
-                    return res.json()
-                })
-                .then(responseJson => {
-                    this.context.userGameAdded(responseJson)
-                    return
-                })
-                .catch(error => {
-                    console.error(error)
-                })
+            await this.addNewUserDataLove(bool)
         } else {
             const loveChange = {user_loved: e.currentTarget.checked}
     
@@ -177,47 +182,49 @@ class Game extends Component {
         }
         }
 
+    addNewUserDataPlay = (boolean) => {
+        const newGameDataEntry = {
+            user_id: this.context.currentUserId, 
+            game_id: this.props.match.params.id,
+            user_played: boolean
+        }
+        return fetch(`${config.API_ENDPOINT}api/users-games`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${config.API_TOKEN}`
+            },
+            body: JSON.stringify(newGameDataEntry)
+        })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(res.status)
+                }
+                return res.json()
+            })
+            .then(responseJson => {
+                this.context.userGameAdded(responseJson)
+                return
+            })
+            .catch(error => {
+                console.error(error)
+            })
+    }
 
-    handlePlayedChange = e => {
+    handlePlayedChange = async(e) => {
         this.setState({
             played: e.currentTarget.checked
         })
 
-        const gameData = this.context.userGames.find(game => game.game_id === this.props.match.params.id)
+        const userGameData = this.context.userGames.find(game => game.game_id === this.props.match.params.id)
+        const bool = e.currentTarget.checked
 
-
-        if(!gameData) {
+        if(!userGameData) {
             const localGameData = this.context.allGamesData.find(game => game.id === this.props.match.params.id)
             if(!localGameData) {
-                console.log('no local data')
-                this.addLocalGameData()
+                await this.addLocalGameData()
             }
-            const newGameDataEntry = {
-                user_id: this.context.currentUserId, 
-                game_id: this.props.match.params.id,
-                user_played: e.currentTarget.checked
-            }
-            fetch(`${config.API_ENDPOINT}api/users-games`, {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json',
-                    'Authorization': `Bearer ${config.API_TOKEN}`
-                },
-                body: JSON.stringify(newGameDataEntry)
-            })
-                .then(res => {
-                    if (!res.ok) {
-                        throw new Error(res.status)
-                    }
-                    return res.json()
-                })
-                .then(responseJson => {
-                    this.context.userGameAdded(responseJson)
-                    return
-                })
-                .catch(error => {
-                    console.error(error)
-                })
+            await this.addNewUserDataPlay(bool)
         } else {
             const playChange = {user_played: e.currentTarget.checked}
     
@@ -255,8 +262,7 @@ class Game extends Component {
             game_id: this.props.match.params.id,
             user_saved: boolean
         }
-        console.log(newGameDataEntry)
-        fetch(`${config.API_ENDPOINT}api/users-games`, {
+        return fetch(`${config.API_ENDPOINT}api/users-games`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -279,10 +285,12 @@ class Game extends Component {
             })
     }
 
-    handleSavedChange = async (e) => {
+    handleSavedChange = async(e) => {
         this.setState({
             saved: e.currentTarget.checked
         })
+
+        const bool = e.currentTarget.checked
 
         const userGameData = this.context.userGames.find(game => game.game_id === this.props.match.params.id)
         
@@ -291,7 +299,7 @@ class Game extends Component {
             if(!localGameData) {
                 await this.addLocalGameData()
             }
-            await this.addNewUserDataSave(e.currentTarget.checked)
+            await this.addNewUserDataSave(bool)
         } else {
             const saveChange = {user_saved: e.currentTarget.checked}
     
