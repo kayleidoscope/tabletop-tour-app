@@ -14,9 +14,9 @@ class GamesItem extends Component {
         }
 
         const myDataNodes = <div className="nodes">
-            <p className={this.props.myData.have_played ? "on" : ""}>Played</p>
-            <p className={this.props.myData.love ? "on" : ""}>Love</p>
-            <p className={this.props.myData.want_to_play ? "on" : ""}>Crave</p>
+            <p className={this.props.myData.user_played ? "on" : ""}>Played</p>
+            <p className={this.props.myData.user_loved ? "on" : ""}>Love</p>
+            <p className={this.props.myData.user_saved ? "on" : ""}>Crave</p>
         </div>
 
         return (
@@ -25,7 +25,7 @@ class GamesItem extends Component {
                     <h3>{gameData.name}</h3>
                 </Link>
                 <div className="imageAndInfo">
-                <img src={gameData.images.small} alt={`${gameData} packaging`}/>
+                <img src={gameData.small_image} alt={`${gameData} packaging`}/>
                     <ul >
                         <li>List price: {gameData.msrp_text}</li>
                         <li>Number of players: {gameData.min_players} to {gameData.max_players} people</li>

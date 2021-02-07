@@ -2,13 +2,19 @@ import React, {Component} from 'react';
 import './Home.css'
 import Review from '../Review/Review'
 import dummyData from '../dummyData'
-import {Link} from 'react-router-dom';
+import Context from '../Context'
+import {Link, Redirect} from 'react-router-dom';
 import MyGamesMini from '../MyGamesMini/MyGamesMini'
 
 class Home extends Component {
+    static contextType = Context
 
+    
     render() {
-        const reviews = dummyData[0].reviews
+        if(!this.context.currentUserId) {
+            return <Redirect to="/" />
+        }
+        const reviews = this.context.userReviews
 
         const reviewComponents = reviews.map(review => {
             return (
@@ -16,8 +22,8 @@ class Home extends Component {
             )
         })
 
-        const usersGames = dummyData[0].users_games
-        const gameData = dummyData[0].games
+        const usersGames = this.context.userGames.filter(game => game.user_played || game.user_loved || game.user_saved)
+        const gameData = this.context.allGamesData
 
         const miniMyGames = usersGames.map((game, i) => {
             const thisGameData = gameData.find(game => game.id === usersGames[i].game_id)

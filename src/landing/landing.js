@@ -60,8 +60,8 @@ class Landing extends Component {
                         <button onClick={this.context.demoLogIn}>Log In as Demo User</button>
                     </div>
                 }
-                {this.state.logInBox && <LogIn handleCancelButton={this.clickCancel}/>}
-                {this.state.signUpBox && <SignUp handleCancelButton={this.clickCancel}/>}
+                {this.state.logInBox && <LogIn handleCancelButton={this.clickCancel} history={this.props.history}/>}
+                {this.state.signUpBox && <SignUp handleCancelButton={this.clickCancel} history={this.props.history}/>}
             </section>
         )
     }
