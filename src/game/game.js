@@ -340,7 +340,7 @@ class Game extends Component {
         })
 
         return (
-            <section>
+            <section className="game">
                 <h2>{gameData.name}</h2>
 {this.context.currentUserId &&                <form>
                     <input type="checkbox" id="own" name="own" checked={this.state.played} onChange={this.handlePlayedChange}/>

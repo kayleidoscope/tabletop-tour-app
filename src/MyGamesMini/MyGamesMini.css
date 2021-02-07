@@ -10,3 +10,7 @@
     padding: 10px;
     margin: 10px auto;
 }
+
+.my-games-mini img {
+    width: 100%;
+}
