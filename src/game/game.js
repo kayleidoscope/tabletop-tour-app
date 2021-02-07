@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './Game.css'
 import config from '../config'
-import dummyData from '../dummyData'
 import Review from '../Review/Review'
 import AddReview from '../AddReview/AddReview'
 import Context from '../Context'
@@ -250,44 +249,49 @@ class Game extends Component {
         })
       }
 
-    handleSavedChange = e => {
+    addNewUserDataSave = (boolean) => {
+        const newGameDataEntry = {
+            user_id: this.context.currentUserId, 
+            game_id: this.props.match.params.id,
+            user_saved: boolean
+        }
+        console.log(newGameDataEntry)
+        fetch(`${config.API_ENDPOINT}api/users-games`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${config.API_TOKEN}`
+            },
+            body: JSON.stringify(newGameDataEntry)
+        })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(res.status)
+                }
+                return res.json()
+            })
+            .then(responseJson => {
+                this.context.userGameAdded(responseJson)
+                return
+            })
+            .catch(error => {
+                console.error(error)
+            })
+    }
+
+    handleSavedChange = async (e) => {
         this.setState({
             saved: e.currentTarget.checked
         })
 
-        const gameData = this.context.userGames.find(game => game.game_id === this.props.match.params.id)
+        const userGameData = this.context.userGames.find(game => game.game_id === this.props.match.params.id)
         
-        if(!gameData) {
+        if(!userGameData) {
             const localGameData = this.context.allGamesData.find(game => game.id === this.props.match.params.id)
             if(!localGameData) {
-                this.addLocalGameData()
+                await this.addLocalGameData()
             }
-            const newGameDataEntry = {
-                user_id: this.context.currentUserId, 
-                game_id: this.props.match.params.id,
-                user_saved: e.currentTarget.checked
-            }
-            fetch(`${config.API_ENDPOINT}api/users-games`, {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json',
-                    'Authorization': `Bearer ${config.API_TOKEN}`
-                },
-                body: JSON.stringify(newGameDataEntry)
-            })
-                .then(res => {
-                    if (!res.ok) {
-                        throw new Error(res.status)
-                    }
-                    return res.json()
-                })
-                .then(responseJson => {
-                    this.context.userGameAdded(responseJson)
-                    return
-                })
-                .catch(error => {
-                    console.error(error)
-                })
+            await this.addNewUserDataSave(e.currentTarget.checked)
         } else {
             const saveChange = {user_saved: e.currentTarget.checked}
     
@@ -314,7 +318,8 @@ class Game extends Component {
     render() {
         const gameData = this.state.gameData
 
-        const usersGameData = this.context.userGames
+        const description = gameData.description_preview || gameData.description
+        const rules = gameData.rules_url || gameData.rules
 
         if (Object.keys(gameData).length === 0) {
             return null
@@ -346,9 +351,10 @@ class Game extends Component {
                     <li>Number of players: {gameData.min_players} to {gameData.max_players} people</li>
                     <li>Minimum age: {gameData.min_age}</li>
                     <li>Playtime: {gameData.min_playtime} to {gameData.max_playtime} minutes</li>
-                    <li><a href={gameData.rules_url} target="_blank" rel="noreferrer">Rules</a></li>
+                    {rules && <li><a href={rules} target="_blank" rel="noreferrer">Rules</a></li>}
+                    {!rules && <li>Rules data not available.</li>}
                 </ul>
-                <p>{gameData.description_preview}</p>
+                <p>{description}</p>
                 <h3>User reviews</h3>
                 <ul>
                     {reviewComponents}

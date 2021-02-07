@@ -10,7 +10,6 @@ import Home from './Home/Home'
 import MyGames from './MyGames/MyGames'
 import Game from './Game/Game'
 import Discover from './Discover/Discover'
-import dummyData from './dummyData'
 import Footer from './Footer/Footer'
 
 class App extends Component {
@@ -50,11 +49,76 @@ class App extends Component {
   }
 
   demoLogIn = (e) => {
-    this.setState({
-      currentUserId: dummyData[0].users[0].id,
-      currentUserName: dummyData[0].users[0].username
+    e.preventDefault()
+    const username = "demo_user"
+
+    //API call to create a new user
+    fetch(`${config.API_ENDPOINT}api/users?username=${username}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${config.API_TOKEN}`
+        }
     })
-    this.props.history.push("/home")
+        .then(res => {
+            if(!res.ok) {
+                throw new Error(res.status)
+            }
+            return res.json()
+        })
+        .then(responseJson => {
+            if (JSON.stringify(responseJson).length === 2) {
+                this.setState({
+                    error: true
+                })
+                return
+            } else {
+                this.setCurrentUser(responseJson)
+                //sets current user Id to local storage
+                localStorage.setItem(
+                    `currentUser${config.CURRENT_VERSION}`, JSON.stringify(responseJson)
+                )
+                this.props.history.push("/home")
+                fetch(`${config.API_ENDPOINT}api/users-games?user_id=${responseJson.id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${config.API_TOKEN}`
+                    }
+                })
+                    .then(res => {
+                        if(!res.ok) {
+                            throw new Error(res.status)
+                        }
+                        return res.json()
+                    })
+                    .then(responseJson => {
+                        this.setUserGames(responseJson)
+                    })
+                    .catch(error => {
+                        console.error(error)
+                    })
+                fetch(`${config.API_ENDPOINT}api/reviews?user_id=${responseJson.id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${config.API_TOKEN}`
+                    }
+                })
+                    .then(res => {
+                        if(!res.ok) {
+                            throw new Error(res.status)
+                        }
+                        return res.json()
+                    })
+                    .then(responseJson => {
+                        this.setReviews(responseJson)
+                    })
+                    .catch(error => {
+                        console.error(error)
+                    })
+            }
+        })
+        .catch(error => {
+            console.error(error)
+        })
   }
 
   demoLogOut = (e) => {
@@ -112,11 +176,53 @@ class App extends Component {
       .catch(error => {
           console.error(error)
       })
+
+      // if(localStorage.getItem(`currentUser${config.CURRENT_VERSION}`)) {
+      //   this.setCurrentUser(localStorage.getItem(`currentUser${config.CURRENT_VERSION}`))
+      //   fetch(`${config.API_ENDPOINT}api/users-games?user_id=${localStorage.getItem(`currentUser${config.CURRENT_VERSION}`).id}`, {
+      //     method: 'GET',
+      //     headers: {
+      //       'Authorization': `Bearer ${config.API_TOKEN}`
+      //     }
+      //   })
+      //     .then(res => {
+      //       if(!res.ok) {
+      //         throw new Error(res.status)
+      //       }
+      //       return res.json()
+      //     })
+      //     .then(responseJson => {
+      //       this.setUserGames(responseJson)
+      //     })
+      //     .catch(error => {
+      //       console.error(error)
+      //     })
+      //   fetch(`${config.API_ENDPOINT}api/reviews?user_id=${localStorage.getItem(`currentUser${config.CURRENT_VERSION}`).id}`, {
+      //     method: 'GET',
+      //     headers: {
+      //       'Authorization': `Bearer ${config.API_TOKEN}`
+      //     }
+      //   })
+      //     .then(res => {
+      //       if(!res.ok) {
+      //         throw new Error(res.status)
+      //       }
+      //       return res.json()
+      //     })
+      //     .then(responseJson => {
+      //       this.setReviews(responseJson)
+      //     })
+      //     .catch(error => {
+      //       console.error(error)
+      //     })
+      // this.props.history.push("/home")
+      // }
   }
 
   render() {
+    const userFromStorage = localStorage.getItem(`currentUser${config.CURRENT_VERSION}`)
     const contextValue={
-      currentUserId: this.state.currentUserId,
+      currentUserId: this.state.currentUserId || (userFromStorage && JSON.parse(userFromStorage).id),
       currentUserName: this.state.currentUserName,
       demoLogIn: this.demoLogIn,
       demoLogOut: this.demoLogOut,

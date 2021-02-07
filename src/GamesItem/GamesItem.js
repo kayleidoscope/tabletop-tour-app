@@ -9,14 +9,17 @@ class GamesItem extends Component {
     render() {
         let gameData = this.props.gameInfo
 
+        let gameImage = gameData.small_image || gameData.images.small
+        let gameRules = gameData.rules_url || gameData.rules
+
         if (!gameData) {
             return null
         }
 
         const myDataNodes = <div className="nodes">
             <p className={this.props.myData.user_played ? "on" : ""}>Played</p>
-            <p className={this.props.myData.user_loved ? "on" : ""}>Love</p>
-            <p className={this.props.myData.user_saved ? "on" : ""}>Crave</p>
+            <p className={this.props.myData.user_loved ? "on" : ""}>Loved</p>
+            <p className={this.props.myData.user_saved ? "on" : ""}>Saved</p>
         </div>
 
         return (
@@ -25,13 +28,13 @@ class GamesItem extends Component {
                     <h3>{gameData.name}</h3>
                 </Link>
                 <div className="imageAndInfo">
-                <img src={gameData.small_image} alt={`${gameData} packaging`}/>
+                <img src={gameImage} alt={`${gameData} packaging`}/>
                     <ul >
                         <li>List price: {gameData.msrp_text}</li>
                         <li>Number of players: {gameData.min_players} to {gameData.max_players} people</li>
                         <li>Minimum age: {gameData.min_age}</li>
                         <li>Playtime: {gameData.min_playtime} to {gameData.max_playtime} minutes</li>
-                        <li><a href={gameData.rules_url} target="_blank" rel="noreferrer">Rules</a></li>
+                        {gameRules && <li><a href={gameRules} target="_blank" rel="noreferrer">Rules</a></li>}
                         {/* <li>Categories: {gameData.categories}</li> */}
                     </ul>
                 </div>

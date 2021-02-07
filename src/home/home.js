@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './Home.css'
 import Review from '../Review/Review'
-import dummyData from '../dummyData'
 import Context from '../Context'
 import {Link, Redirect} from 'react-router-dom';
 import MyGamesMini from '../MyGamesMini/MyGamesMini'
@@ -18,7 +17,7 @@ class Home extends Component {
 
         const reviewComponents = reviews.map(review => {
             return (
-                <Review reviewData={review} key={review.id} />
+                <Review reviewData={review} key={`R${review.user_id}-${review.game_id}`} />
             )
         })
 
@@ -38,7 +37,7 @@ class Home extends Component {
 
         return (
             <section className="home">
-                <h2>Welcome, user!</h2>
+                <h2>Welcome, {this.context.currentUserName}!</h2>
                 <h3>Games</h3>
                 <Link to="/my-games">
                     <h4>My games log</h4>

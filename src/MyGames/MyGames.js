@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import './MyGames.css'
-import SearchForm from '../SearchForm/SearchForm'
-import dummyData from '../dummyData'
 import GamesList from '../GamesList/GamesList'
 import Context from '../Context'
 import {Redirect} from 'react-router-dom';
@@ -17,7 +15,7 @@ class MyGames extends Component {
         const gameData = this.context.allGamesData
 
         let gamesCloset = myGames.filter(game => game.user_played)
-        let dreamGames = myGames.filter(game => !(game.user_played) && game.user_loved || game.user_saved)
+        let dreamGames = myGames.filter(game => !(game.user_played) && (game.user_loved || game.user_saved))
         
         gamesCloset = gamesCloset.map((game, i) => {
             const thisGameData = gameData.find(game => game.id === gamesCloset[i].game_id)
