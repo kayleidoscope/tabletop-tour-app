@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import Context from '../Context'
 import './Landing.css'
 import LogIn from '../LogIn/LogIn'
+import {Link} from 'react-router-dom';
 import SignUp from '../SignUp/SignUp'
+import config from '../config'
 
 class Landing extends Component {
     static contextType = Context
@@ -46,22 +48,26 @@ class Landing extends Component {
     }
 
     render() {
+        const userFromStorage = JSON.parse(localStorage.getItem(`currentUser${config.CURRENT_VERSION}`))
 
         return (
             <section className="landing">
+                {userFromStorage && <h2>Welcome back, {userFromStorage.username}!</h2>}
                 <p>What Good Reads does for books, we do for games!</p>
-                <p>Find and review games, with or without an account.</p>
-                <p>Or sign up for a free account below to keep track of the tabletop games you've played, or that you want to play in the future.</p>
-                <p>Get started by clicking "Discover" above to find games, or create an account to start tracking games you love.</p>
-                {this.state.buttonsOn && 
+                {userFromStorage && <p>Get started by clicking "Discover" above, or click below to go to your home page.</p>}
+                {userFromStorage && <Link to={'/home'}><button>Go to Home Page</button></Link>}
+                {!userFromStorage && <p>Find and review games, with or without an account.</p>}
+                {!userFromStorage && <p>Or sign up for a free account below to keep track of the tabletop games you've played, or that you want to play in the future.</p>}
+                {!userFromStorage && <p>Get started by clicking "Discover" above to find games, or create an account to start tracking games you love.</p>}
+                {!userFromStorage && this.state.buttonsOn && 
                     <div className="buttons">
                         <button onClick={this.logInTrue}>Log In</button>
                         <button onClick={this.signUpTrue}>Sign Up</button>
                         <button onClick={this.context.demoLogIn}>Log In as Demo User</button>
                     </div>
                 }
-                {this.state.logInBox && <LogIn handleCancelButton={this.clickCancel} history={this.props.history}/>}
-                {this.state.signUpBox && <SignUp handleCancelButton={this.clickCancel} history={this.props.history}/>}
+                {!userFromStorage && this.state.logInBox && <LogIn handleCancelButton={this.clickCancel} history={this.props.history}/>}
+                {!userFromStorage && this.state.signUpBox && <SignUp handleCancelButton={this.clickCancel} history={this.props.history}/>}
             </section>
         )
     }

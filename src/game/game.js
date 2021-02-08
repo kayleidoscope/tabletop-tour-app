@@ -328,6 +328,7 @@ class Game extends Component {
 
         const description = gameData.description_preview || gameData.description
         const rules = gameData.rules_url || gameData.rules
+        const cost = gameData.msrp_test || gameData.msrp
 
         if (Object.keys(gameData).length === 0) {
             return null
@@ -338,6 +339,8 @@ class Game extends Component {
                 <Review reviewData={review} key={`R${review.user_id}-${review.game_id}`} />
             )
         })
+
+        console.log(this.state.played, this.state.loved, this.state.saved)
 
         return (
             <section className="game">
@@ -355,7 +358,7 @@ class Game extends Component {
                 {!this.context.currentUserId && <p>Log in to track the games you've played!</p>}
                 <img src={gameData.medium_image ? gameData.medium_image : gameData.images.medium} alt={`${gameData.name} packaging`} />
                 <ul>
-                    <li>List price: {gameData.msrp_text}</li>
+                    <li>List price: {cost}</li>
                     <li>Number of players: {gameData.min_players} to {gameData.max_players} people</li>
                     <li>Minimum age: {gameData.min_age}</li>
                     <li>Playtime: {gameData.min_playtime} to {gameData.max_playtime} minutes</li>

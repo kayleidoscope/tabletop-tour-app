@@ -122,6 +122,7 @@ class App extends Component {
   }
 
   demoLogOut = (e) => {
+    localStorage.removeItem(`currentUser${config.CURRENT_VERSION}`)
     this.setState({
       currentUserId: null,
       currentUserName: null
@@ -155,7 +156,7 @@ class App extends Component {
     this.setState((state) => ({userGames: state.userGames.map(game => game.game_id !== gameId ? game : gameToChange)}))
   }
 
-  componentDidMount() {
+  setAllGames = () => {
     fetch(`${config.API_ENDPOINT}api/games`, {
       method: 'GET',
       headers: {
@@ -176,54 +177,13 @@ class App extends Component {
       .catch(error => {
           console.error(error)
       })
-
-      // if(localStorage.getItem(`currentUser${config.CURRENT_VERSION}`)) {
-      //   this.setCurrentUser(localStorage.getItem(`currentUser${config.CURRENT_VERSION}`))
-      //   fetch(`${config.API_ENDPOINT}api/users-games?user_id=${localStorage.getItem(`currentUser${config.CURRENT_VERSION}`).id}`, {
-      //     method: 'GET',
-      //     headers: {
-      //       'Authorization': `Bearer ${config.API_TOKEN}`
-      //     }
-      //   })
-      //     .then(res => {
-      //       if(!res.ok) {
-      //         throw new Error(res.status)
-      //       }
-      //       return res.json()
-      //     })
-      //     .then(responseJson => {
-      //       this.setUserGames(responseJson)
-      //     })
-      //     .catch(error => {
-      //       console.error(error)
-      //     })
-      //   fetch(`${config.API_ENDPOINT}api/reviews?user_id=${localStorage.getItem(`currentUser${config.CURRENT_VERSION}`).id}`, {
-      //     method: 'GET',
-      //     headers: {
-      //       'Authorization': `Bearer ${config.API_TOKEN}`
-      //     }
-      //   })
-      //     .then(res => {
-      //       if(!res.ok) {
-      //         throw new Error(res.status)
-      //       }
-      //       return res.json()
-      //     })
-      //     .then(responseJson => {
-      //       this.setReviews(responseJson)
-      //     })
-      //     .catch(error => {
-      //       console.error(error)
-      //     })
-      // this.props.history.push("/home")
-      // }
   }
 
   render() {
     const userFromStorage = localStorage.getItem(`currentUser${config.CURRENT_VERSION}`)
     const contextValue={
       currentUserId: this.state.currentUserId || (userFromStorage && JSON.parse(userFromStorage).id),
-      currentUserName: this.state.currentUserName,
+      currentUserName: this.state.currentUserName || (userFromStorage && JSON.parse(userFromStorage).username),
       demoLogIn: this.demoLogIn,
       demoLogOut: this.demoLogOut,
       gameSelected: this.gameSelected,
@@ -234,6 +194,7 @@ class App extends Component {
       updateUsersReviews: this.updateUsersReviews,
       userGameAdded: this.userGameAdded,
       gameAdded: this.gameAdded,
+      setAllGames: this.setAllGames,
       history: this.props.history,
       userReviews: this.state.userReviews,
       userGames: this.state.userGames,

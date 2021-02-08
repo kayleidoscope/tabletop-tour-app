@@ -4,15 +4,56 @@ import Review from '../Review/Review'
 import Context from '../Context'
 import {Link, Redirect} from 'react-router-dom';
 import MyGamesMini from '../MyGamesMini/MyGamesMini'
+import config from '../config'
 
 class Home extends Component {
     static contextType = Context
-
     
     render() {
+        if(this.context.userGames.length === 0) {
+            this.context.setAllGames()
+            const userFromStorage = JSON.parse(localStorage.getItem(`currentUser${config.CURRENT_VERSION}`))
+            fetch(`${config.API_ENDPOINT}api/users-games?user_id=${userFromStorage.id}`, {
+              method: 'GET',
+              headers: {
+                'Authorization': `Bearer ${config.API_TOKEN}`
+              }
+            })
+              .then(res => {
+                if(!res.ok) {
+                  throw new Error(res.status)
+                }
+                return res.json()
+              })
+              .then(responseJson => {
+                this.context.setUserGames(responseJson)
+              })
+              .catch(error => {
+                console.error(error)
+              })
+            fetch(`${config.API_ENDPOINT}api/reviews?user_id=${userFromStorage.id}`, {
+              method: 'GET',
+              headers: {
+                'Authorization': `Bearer ${config.API_TOKEN}`
+              }
+            })
+              .then(res => {
+                if(!res.ok) {
+                  throw new Error(res.status)
+                }
+                return res.json()
+              })
+              .then(responseJson => {
+                this.context.setReviews(responseJson)
+              })
+              .catch(error => {
+                console.error(error)
+              })
+      }
         if(!this.context.currentUserId) {
             return <Redirect to="/" />
         }
+
         const reviews = this.context.userReviews
 
         const reviewComponents = reviews.map(review => {
@@ -37,15 +78,13 @@ class Home extends Component {
 
         return (
             <section className="home">
-                <h2>Welcome, {this.context.currentUserName}!</h2>
-                <h3>Games</h3>
                 <Link to="/my-games">
-                    <h4>My games log</h4>
+                    <h2>My Games Log</h2>
                 </Link>
                 <ul className="mini-games">
                     {miniMyGames}
                 </ul>
-                <h3>My reviews</h3>
+                <h2>My reviews</h2>
                 <ul>
                     {reviewComponents}
                 </ul>

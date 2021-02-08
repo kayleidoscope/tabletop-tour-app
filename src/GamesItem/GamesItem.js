@@ -11,6 +11,7 @@ class GamesItem extends Component {
 
         let gameImage = gameData.small_image || gameData.images.small
         let gameRules = gameData.rules_url || gameData.rules
+        let gameCost = gameData.msrp_text || gameData.msrp
 
         if (!gameData) {
             return null
@@ -30,7 +31,7 @@ class GamesItem extends Component {
                 <div className="imageAndInfo">
                 <img src={gameImage} alt={`${gameData} packaging`}/>
                     <ul >
-                        <li>List price: {gameData.msrp_text}</li>
+                        <li>List price: {gameCost}</li>
                         <li>Number of players: {gameData.min_players} to {gameData.max_players} people</li>
                         <li>Minimum age: {gameData.min_age}</li>
                         <li>Playtime: {gameData.min_playtime} to {gameData.max_playtime} minutes</li>
