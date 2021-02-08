@@ -3,7 +3,6 @@ import './MyGames.css'
 import GamesList from '../GamesList/GamesList'
 import Context from '../Context'
 import {Redirect} from 'react-router-dom';
-import dummyData from '../dummyData'
 
 class MyGames extends Component {
     static contextType = Context
