@@ -21,7 +21,7 @@ class Home extends Component {
     if(this.context.userGames.length === 0) {
       this.context.setAllGames()
     }
-      const userFromStorage = JSON.parse(localStorage.getItem(`currentUser${config.CURRENT_VERSION}`))
+      const userFromStorage = JSON.parse(localStorage.getItem(`currentUser${config.CURRENT_VERSION}`)) ? JSON.parse(localStorage.getItem(`currentUser${config.CURRENT_VERSION}`)) : 1
       fetch(`${config.API_ENDPOINT}api/users-games?user_id=${userFromStorage.id}`, {
         method: 'GET',
         headers: {

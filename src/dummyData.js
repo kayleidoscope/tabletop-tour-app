@@ -9,23 +9,23 @@ const dummyData = [{
         {
             user_id: 1,
             game_id: "AuBvbISHR6",
-            have_played: true,
-            love: true,
-            want_to_play: false
+            user_played: true,
+            user_loved: true,
+            user_saved: false
         },
         {
             user_id: 1,
             game_id: "7UFLK3V2Tg",
-            have_played: false,
-            love: false,
-            want_to_play: true
+            user_played: false,
+            user_loved: false,
+            user_saved: true
         },
         {
             user_id: 1,
             game_id: "uOhZRZa3xN",
-            have_played: true,
-            love: true,
-            want_to_play: true
+            user_played: true,
+            user_loved: true,
+            user_saved: true
         }
     ],
     reviews: [
@@ -195,6 +195,7 @@ const dummyData = [{
                 "large": "https://d2k4q26owzy373.cloudfront.net/700x700/games/uploaded/1559254202421-61wLscAHHSL.jpg",
                 "original": "https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254202421-61wLscAHHSL.jpg"
             },
+            "small_image": "https://d2k4q26owzy373.cloudfront.net/150x150/games/uploaded/1559254202421-61wLscAHHSL.jpg",
             "description_preview": "Ticket to Ride is a cross-country train adventure game. Players collect train cards that enable them to claim railway routes connecting cities throughout North America. The longer the routes, the more points they earn. Additional points come to those who can fulfill their Destination Tickets by connecting two distant cities, and to the player who builds the longest continuous railway. So climb aboard for some railroading fun and adventure. You've got a Ticket to Ride! \r\n \r\nOctober 2, 1900 -- it's 28 years to the day that noted London eccentric, Phileas Fogg accepted and then won a 20,000 bet that he could travel Around the World in 80 Days. Now at the dawn of the century some old friends have gathered to celebrate Fogg's impetuous and lucrative gamble -- and to propose a new wager of their own. The stakes: $1 million in a winner-takes-all competition. The objective: to see the most cities in North America -- in just 7 days.  \r\n \r\n-Spiel Des Jahres 2004(German game of the year) \r\n-As d'Or Cannes 2004 (French game of the year) \r\n-Game of the year 2004 - Japan \r\n-Game of the year 2004 - Sweden \r\n-Game of the year 2004 - Finland \r\n-Diana Jones Excellence in Gaming Award 2004 \r\n-Origins Award Winner - Best Board Game 2005 \r\n-Game of the year 2004 - Spain \r\n-Parent's Choice Foundation Silver Medal 2004"
         },
         {

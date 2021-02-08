@@ -4,7 +4,8 @@ import dummyData from './dummyData';
 const Context = React.createContext({
     currentUserId: null,
     currentUsername: "",
-    gamesData: dummyData.games,
+    allGamesData: dummyData[0].games,
+    userGames: dummyData[0].users_games,
     history: {
         location: {
             pathname: "/"
