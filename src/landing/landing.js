@@ -56,7 +56,7 @@ class Landing extends Component {
                 <p>What Good Reads does for books, we do for games!</p>
                 {userFromStorage && <p>Get started by clicking "Discover" above, or click below to go to your home page.</p>}
                 {userFromStorage && <Link to={'/home'}><button>Go to Home Page</button></Link>}
-                {!userFromStorage && <p>Find and review games, with or without an account.</p>}
+                {!userFromStorage && <p>Find and review games.</p>}
                 {!userFromStorage && <p>Or sign up for a free account below to keep track of the tabletop games you've played, or that you want to play in the future.</p>}
                 {!userFromStorage && <p>Get started by clicking "Discover" above to find games, or create an account to start tracking games you love.</p>}
                 {!userFromStorage && this.state.buttonsOn && 

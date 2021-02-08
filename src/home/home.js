@@ -84,6 +84,10 @@ editReview = newReview => {
             return <Redirect to="/" />
         }
 
+        if(!this.context.allGamesData) {
+          return null
+        }
+
         const reviews = this.state.userReviews
 
         const reviewComponents = reviews.map(review => {
