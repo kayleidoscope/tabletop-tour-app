@@ -16,15 +16,15 @@ class Nav extends Component {
         return (
             <nav>
                 <ul>
+                    <Link to="/discover">
+                        <li>Discover</li>
+                    </Link>
                     <Link to="/about">
                         <li>About</li>
                     </Link>
                     {!userLoggedIn && this.context.history.location.pathname !== "/" && <Link to="/"><li>Log In</li></Link>}
-                    {userLoggedIn && <Link to="/"><li onClick={this.context.demoLogOut}>Log Out</li></Link>}
                     {userLoggedIn && <Link to="/home"><li>Home</li></Link>}
-                    <Link to="/discover">
-                        <li>Discover</li>
-                    </Link>
+                    {userLoggedIn && <Link to="/"><li onClick={this.context.demoLogOut}>Log Out</li></Link>}
                 </ul>
             </nav>
         )
