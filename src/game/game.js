@@ -15,9 +15,23 @@ class Game extends Component {
             loved: false,
             played: false,
             saved: false,
-            reviews: []
+            reviews: [],
+            infoBox: false
         }
     }
+
+    expandInfoBox = e => {
+        this.setState({
+            infoBox: true
+        })
+    }
+
+    collapseInfoBox = e => {
+        this.setState({
+            infoBox: false
+        })
+    }
+
 
     componentDidMount() {
         const gameId = this.props.match.params.id
@@ -74,6 +88,34 @@ class Game extends Component {
             .catch(error => {
                 console.error(error)
             })
+        
+            if(this.context.userGames.length === 0) {
+                this.context.setAllGames()
+                const userFromStorage = JSON.parse(localStorage.getItem(`currentUser${config.CURRENT_VERSION}`))
+                fetch(`${config.API_ENDPOINT}api/users-games/${userFromStorage.id}/${this.props.match.params.id}`, {
+                  method: 'GET',
+                  headers: {
+                    'Authorization': `Bearer ${config.API_TOKEN}`
+                  }
+                })
+                  .then(res => {
+                    if(!res.ok) {
+                      throw new Error(res.status)
+                    }
+                    return res.json()
+                  })
+                  .then(responseJson => {
+                    this.setState({
+                        played: responseJson.user_played,
+                        loved: responseJson.user_loved,
+                        saved: responseJson.user_saved
+    
+                    })
+                  })
+                  .catch(error => {
+                    console.error(error)
+                  })
+          }
     }
 
     addLocalGameData() {
@@ -249,11 +291,14 @@ class Game extends Component {
 
     }
 
-    updateReviews = newReview => {
-        console.log('updateReviews ran')
+    addReview = newReview => {
         this.setState({
           reviews: [...this.state.reviews, newReview]
         })
+      }
+
+      editReview = newReview => {  
+        this.setState((state) => ({reviews: state.reviews.map(review => !(review.game_id === newReview.game_id && review.user_id === newReview.user_id) ? review : newReview)}))
       }
 
     addNewUserDataSave = (boolean) => {
@@ -334,17 +379,27 @@ class Game extends Component {
             return null
         }
 
+        const userReview = this.state.reviews.find(review => review.user_id === this.context.currentUserId)
+        
         const reviewComponents = this.state.reviews.map(review => {
             return (
-                <Review reviewData={review} key={`R${review.user_id}-${review.game_id}`} />
+                <Review reviewData={review} key={`R${review.user_id}-${review.game_id}`}  editReview={this.editReview}/>
             )
         })
-
-        console.log(this.state.played, this.state.loved, this.state.saved)
 
         return (
             <section className="game">
                 <h2>{gameData.name}</h2>
+                {!this.state.infoBox && <button onClick={this.expandInfoBox}>What is this page?</button>}
+                {this.state.infoBox && 
+                    <div>
+                        <p>This page contains information on {gameData.name}.</p>
+                        <p>If you are logged in, you can use this page to keep track of whether
+                            you have played this game, love this game, or want to play this game.
+                        </p>
+                        <p>You can also write reviews if you are logged in.</p>
+                        <button onClick={this.collapseInfoBox}>Got it, thanks!</button>
+                    </div>}
 {this.context.currentUserId &&                <form>
                     <input type="checkbox" id="own" name="own" checked={this.state.played} onChange={this.handlePlayedChange}/>
                     <label htmlFor="own">I've played this</label>
@@ -370,12 +425,18 @@ class Game extends Component {
                 <ul>
                     {reviewComponents}
                 </ul>
-{this.context.currentUserId &&                <AddReview 
+{this.context.currentUserId && !userReview &&               <AddReview 
                     gameName={gameData.name} 
                     gameId={this.props.match.params.id}
-                    updateReviews={this.updateReviews}
+                    gameData={this.state.gameData}
+                    addReview={this.addReview}
                 />}
                 {!this.context.currentUserId && <p>Log in to post a review!</p>}
+                {userReview && <div>
+                        <h3>Review {gameData.name}</h3>
+                        <p>You've already reviewed this game, and may not write a second review.</p>
+                        <p>Click the Edit Review link on your review to change your review.</p>
+                    </div>}
             </section>
         )
     }

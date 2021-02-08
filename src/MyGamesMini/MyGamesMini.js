@@ -13,12 +13,12 @@ class MyGamesMini extends Component {
             <li className="my-games-mini">
                 <img src={this.props.gameData.small_image} alt={`${this.props.gameData.name} packaging`}/>
                 <Link to={`/game/${this.props.gameData.id}`}>
-                    <h5>{this.props.gameData.name}</h5>
+                    <h3>{this.props.gameData.name}</h3>
                 </Link>
                 <div className="icons">
-                    {havePlayed && <p>Played</p>}
-                    {love && <p>Loved</p>}
-                    {wantToPlay && <p>Saved</p>}
+                    {havePlayed ? <p className="on"><strong>Played</strong></p> : <p>Played</p>}
+                    {love ? <p className="on"><strong>Loved</strong></p> : <p>Loved</p>}
+                    {wantToPlay ? <p className="on"><strong>Saved</strong></p> : <p>Saved</p>}
                 </div>
             </li>
         )

@@ -14,20 +14,33 @@ class AddReview extends Component {
         }
     }
 
-    handleSubmit = e => {
+    addLocalGameData() {
+        const newGameEntry = this.props.gameData
 
-        e.preventDefault()
-        console.log('handleSubmit add review ran')
+        return fetch(`${config.API_ENDPOINT}api/games`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${config.API_TOKEN}`
+            },
+            body: JSON.stringify(newGameEntry)
+        })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(res.status)
+                }
+                return res.json()
+            })
+            .then(responseJson => {
+                this.context.gameAdded(responseJson)
+                return
+            })
+            .catch(error => {
+                console.error(error)
+            })
+    }
 
-        const rating = parseInt(this.state.rating)
-        const review = this.state.review
-        const user_id = this.context.currentUserId ? this.context.currentUserId : 30
-        const game_id = this.props.gameId
-
-        const newReview = {user_id, game_id, review, rating}
-
-        console.log(newReview)
-
+    postNewReview = (newReview) => {
         fetch(`${config.API_ENDPOINT}api/reviews`, {
             method: 'POST',
             headers: {
@@ -43,13 +56,31 @@ class AddReview extends Component {
                 return res.json()
             })
             .then(responseJson => {
-                console.log(responseJson)
                 if (this.context.currentUserId) this.context.updateUsersReviews(responseJson)
-                this.props.updateReviews(responseJson)
+                this.props.addReview(responseJson)
             })
             .catch(error => {
                 console.error(error)
             })
+    }
+
+    handleSubmit = async(e) => {
+        e.preventDefault()
+        const localGameData = this.context.allGamesData.find(game => game.id === this.props.gameId)
+
+        if(!localGameData) {
+            await this.addLocalGameData()
+        }
+
+        const rating = parseInt(this.state.rating)
+        const review = this.state.review
+        const user_id = this.context.currentUserId ? this.context.currentUserId : 30
+        const game_id = this.props.gameId
+
+        const newReview = {user_id, game_id, review, rating}
+
+        await this.postNewReview(newReview)
+
     }
     
     reviewChanged = review => {

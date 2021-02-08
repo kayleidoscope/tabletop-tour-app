@@ -16,7 +16,8 @@ class Discover extends Component {
             categories: "",
             age: null,
             games: [],
-            submitSent: false
+            submitSent: false,
+            infoBox: false
         }
     }
 
@@ -107,10 +108,34 @@ class Discover extends Component {
             })
     }
 
+    expandInfoBox = e => {
+        this.setState({
+            infoBox: true
+        })
+    }
+
+    collapseInfoBox = e => {
+        this.setState({
+            infoBox: false
+        })
+    }
+
     render() {
         return (
             <section>
                 <h2>Discover</h2>
+                {!this.state.infoBox && <button onClick={this.expandInfoBox}>What is this page?</button>}
+                {this.state.infoBox && 
+                    <div>
+                        <p>Use this page to search for games with the parameters below.</p>
+                        <p>None of the parameters are required, so fill out as many or as few as you'd like. 
+                        </p>
+                        <p>If you found a game you want to save for later (and you're logged in),
+                            you can click onto that game's page and track it using the checkboxes there.
+                        </p>
+                        <p>Please note the games take a moment to populate.</p>
+                        <button onClick={this.collapseInfoBox}>Got it, thanks!</button>
+                    </div>}
                 <SearchForm 
                     handleSubmit={this.handleSubmit}
                     nameChanged={this.nameChanged}

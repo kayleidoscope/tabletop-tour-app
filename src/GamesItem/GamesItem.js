@@ -18,9 +18,9 @@ class GamesItem extends Component {
         }
 
         const myDataNodes = <div className="nodes">
-            <p className={this.props.myData.user_played ? "on" : ""}>Played</p>
-            <p className={this.props.myData.user_loved ? "on" : ""}>Loved</p>
-            <p className={this.props.myData.user_saved ? "on" : ""}>Saved</p>
+                {this.props.myData.user_played ? <p className="on"><strong>Played</strong></p> : <p>Played</p>}
+                {this.props.myData.user_loved ? <p className="on"><strong>Loved</strong></p> : <p>Loved</p>}
+                {this.props.myData.user_saved ? <p className="on"><strong>Saved</strong></p> : <p>Saved</p>}
         </div>
 
         return (

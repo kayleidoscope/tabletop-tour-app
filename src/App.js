@@ -35,6 +35,27 @@ class App extends Component {
     })
   }
 
+  getUserGames = userId => {
+    fetch(`${config.API_ENDPOINT}api/users-games?user_id=${userId}`, {
+      method: 'GET',
+      headers: {
+          'Authorization': `Bearer ${config.API_TOKEN}`
+      }
+  })
+      .then(res => {
+          if(!res.ok) {
+              throw new Error(res.status)
+          }
+          return res.json()
+      })
+      .then(responseJson => {
+          this.setUserGames(responseJson)
+      })
+      .catch(error => {
+          console.error(error)
+      })
+  }
+
   setReviews = reviews => {
     this.setState({
       userReviews: reviews
@@ -42,7 +63,6 @@ class App extends Component {
   }
 
   updateUsersReviews = newReview => {
-    console.log('updateUsersReviews ran')
     this.setState({
       userReviews: [...this.state.userReviews, newReview]
     })
@@ -195,6 +215,7 @@ class App extends Component {
       userGameAdded: this.userGameAdded,
       gameAdded: this.gameAdded,
       setAllGames: this.setAllGames,
+      getUserGames: this.getUserGames,
       history: this.props.history,
       userReviews: this.state.userReviews,
       userGames: this.state.userGames,

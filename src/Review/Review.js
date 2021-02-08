@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './Review.css'
 import config from '../config'
 import Context from '../Context'
+import EditReview from '../EditReview/EditReview'
 
 class Review extends Component {
     static contextType = Context
@@ -9,7 +10,8 @@ class Review extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: ""
+            name: "",
+            editReviewForm: false
         }
     }
 
@@ -36,6 +38,18 @@ class Review extends Component {
             })
     }
 
+    showEditReviewForm = e => {
+        this.setState({
+            editReviewForm: true
+        })
+    }
+
+    hideEditReviewForm = e => {
+        this.setState({
+            editReviewForm: false
+        })
+    }
+
     render() {
         const reviewData = this.props.reviewData
         const username = this.state.name
@@ -43,11 +57,16 @@ class Review extends Component {
 
         const gameData = this.context.allGamesData.find(game => game.id === reviewData.game_id)
 
+        const userId = this.context.currentUserId
+        const userSameAsReviewer = (userId === reviewData.user_id)
+
         return (
             <li>
                 <p>{gameData.name}, {reviewData.rating} out of 5</p>
                 <p>{reviewData.review}</p>
                 <p>{username}, {date}</p>
+                {userSameAsReviewer && !this.state.editReviewForm && <button onClick={this.showEditReviewForm}>Edit Review</button>}
+                {userSameAsReviewer && this.state.editReviewForm && <EditReview gameId={reviewData.game_id} rating={reviewData.rating} review={reviewData.review} editReview={this.props.editReview} hideEditReviewForm={this.hideEditReviewForm}/>}
             </li>
         )
     }

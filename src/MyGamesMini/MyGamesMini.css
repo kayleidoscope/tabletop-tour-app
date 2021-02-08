@@ -14,3 +14,7 @@
 .my-games-mini img {
     width: 100%;
 }
+
+.my-games-mini .on {
+    color: green
+}
