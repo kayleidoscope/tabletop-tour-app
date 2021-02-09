@@ -1,9 +1,50 @@
 nav ul {
-    display: flex;
     padding: 0;
-    justify-content: space-evenly
 }
 
 nav ul li {
     list-style-type: none;
+    width: 100%;
 }
+
+nav .dropbtn {
+    color: white;
+    background-color: #15291D;
+    padding: 16px;
+    font-size: 16px;
+    border-radius: 0;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+    height: 100%;
+}
+
+nav .dropbtn:hover, nav .dropbtn:focus {
+    background-color: #5F0F40;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block
+}
+
+.dropdown-content {
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd}
+
+.hide {display: none}
+
+.show {display: block;}

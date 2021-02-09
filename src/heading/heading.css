@@ -1,3 +1,22 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    background-color:  #224431;
+}
+
 h1 {
-    text-align: center
+    margin: 0;
+    font-family: 'Comfortaa', cursive;
+    color: white;
+}
+
+header p {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    color: white;
+}
+
+header .text {
+    margin: 10px;
 }

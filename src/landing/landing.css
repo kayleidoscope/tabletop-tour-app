@@ -1,4 +1,18 @@
 .landing .buttons {
-    display: flex;
-    justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.buttons button {
+    margin: 10px;
+}
+
+.landing {
+    margin: 20px;
+    background-color:white;
+    padding: 10px;
+}
+
+.demobtn {
+    grid-column: span 2;
 }

@@ -36,6 +36,9 @@ class LogIn extends Component {
         })
             .then(res => {
                 if(!res.ok) {
+                    this.setState({
+                        error: true
+                    })
                     throw new Error(res.status)
                 }
                 return res.json()
@@ -106,11 +109,12 @@ class LogIn extends Component {
             <form onSubmit={this.handleSubmit}>
                  <label htmlFor="username">Username: </label>
                  <input type="text" id="username" name="username" onChange = {e => this.usernameChanged(e.target.value)}/>
-                 <br/>
-                <input type="submit" value="Submit"/>
-                <button onClick={this.props.handleCancelButton}>
-                    Cancel
-                </button>
+                <div className="log-in-buttons">
+                    <input type="submit" value="Submit"/>
+                    <button onClick={this.props.handleCancelButton}>
+                        Cancel
+                    </button>
+                </div>
                 {this.state.error && (
                     <ValidationError message={"No user found"}/>
                 )}

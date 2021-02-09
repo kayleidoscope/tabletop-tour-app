@@ -58,12 +58,12 @@ class Landing extends Component {
                 {userFromStorage && <Link to={'/home'}><button>Go to Home Page</button></Link>}
                 {!userFromStorage && <p>Discover new games, with or without an account.</p>}
                 {!userFromStorage && <p>Or sign up for a free account below to keep track of the tabletop games you've played, or that you want to play in the future.</p>}
-                {!userFromStorage && <p>Get started by clicking "Discover" above, or create an account.</p>}
+                {!userFromStorage && <p>Get started by clicking "Discover" from the menu, or create an account.</p>}
                 {!userFromStorage && this.state.buttonsOn && 
                     <div className="buttons">
                         <button onClick={this.logInTrue}>Log In</button>
                         <button onClick={this.signUpTrue}>Sign Up</button>
-                        <button onClick={this.context.demoLogIn}>Log In as Demo User</button>
+                        <button className="demobtn" onClick={this.context.demoLogIn}>Log In as Demo User</button>
                     </div>
                 }
                 {!userFromStorage && this.state.logInBox && <LogIn handleCancelButton={this.clickCancel} history={this.props.history}/>}

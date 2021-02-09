@@ -9,9 +9,11 @@ class Heading extends Component {
 
         return (
             <header>
+                <div className="text">
+                    <h1>Tabletop Tour</h1>
+                    <p>Discover. Record. Play.</p>
+                </div>
                 <Nav />
-                <h1>Tabletop Tour</h1>
-                <p>Discover. Record. Play.</p>
             </header>
         )
     }

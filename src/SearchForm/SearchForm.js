@@ -40,7 +40,7 @@ class SearchForm extends Component {
                         <option value={10}>10</option>
                     </select>                    <br />
                     <label htmlFor="age">Minimum age: </label>
-                    <input type="number" id="age" name="age" onChange={e => this.props.ageChanged(e.target.value)}/>
+                    <input type="number" id="age" name="age" onChange={e => this.props.ageChanged(e.target.value)} min={1}/>
                     <br />
                     <label htmlFor="min-playtime">Min playtime: </label>
                     <select name="min-playtime" id="min-playtime" onChange={e => this.props.minPlaytimeChanged(e.target.value)}>
@@ -97,6 +97,9 @@ class SearchForm extends Component {
                         <input type="checkbox" id="words" name="words" />
                         <label htmlFor="words">Words</label>
                     </fieldset> */}
+                    <input type="checkbox" id="random" onChange={this.props.randomChanged} />
+                    <label htmlFor="random">Give me a single random game!</label>
+                    <br />
                     <input type="submit" value="Submit"/>
                 </form>
             </section>

@@ -1,0 +1,15 @@
+.log-in-section button, .log-in-section input[type=submit] {
+    width: 100px;
+    height: 50px;
+}
+
+.log-in-section {
+    text-align: center;
+}
+
+.log-in-buttons {
+    display: flex;
+    justify-content: space-around;
+    width: 75%;
+    margin: 10px auto;
+}

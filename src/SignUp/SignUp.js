@@ -61,17 +61,18 @@ class SignUp extends Component {
     render() {
 
         return (
-            <section className="log-in-section">
+            <section className="sign-up-section">
             <h2>Sign Up</h2>
             <p>Enter your credentials below.</p>
             <form onSubmit={this.handleSubmit}>
                  <label htmlFor="username">Username: </label>
                  <input type="text" id="username" name="username" onChange = {e => this.usernameChanged(e.target.value)}/>
-                 <br/>
-                <input type="submit" value="Submit"/>
-                <button onClick={this.props.handleCancelButton}>
-                    Cancel
-                </button>
+                 <div className="sign-up-buttons">
+                    <input type="submit" value="Submit"/>
+                    <button onClick={this.props.handleCancelButton}>
+                        Cancel
+                    </button>
+                </div>
                 {/* {this.state.error && (
                     <ValidationError message={"No user found"}/>
                 )} */}

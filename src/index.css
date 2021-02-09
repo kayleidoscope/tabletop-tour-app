@@ -5,9 +5,39 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #D5E8EC;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+p, a, button {
+  font-family: 'Montserrat', sans-serif;
+}
+
+h2, h3, h4, h5 {
+  font-family: 'Comfortaa', cursive;
+}
+
+button, input[type=submit] {
+  background-color: #5C415D;
+  border: none;
+  border-radius: 50px;
+  color: white;
+  padding: 15px;
+}
+
+.what-btn {
+  border-radius: 50%;
+  background-color: #59A96A;
+  color: #15291D;
+  width: 32px;
+  height: 32px;
+  font-family: 'Comfortaa', cursive;
+  font-size: 17px;
+  display: inline;
+  font-weight: bolder;
+  padding: 0;
 }

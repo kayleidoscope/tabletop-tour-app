@@ -1,0 +1,36 @@
+.discover {
+    margin: 20px;
+    background-color:white;
+    padding: 10px;
+}
+
+.discover h2 {
+    display: inline;
+}
+
+.discover .page-header {
+    width: 50%;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.discover .info-box {
+    width: 80%;
+    font-size: 15px;
+    margin: auto;
+    background-color: #D7EADB;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.discover .info-box button {
+    background-color: #59A96A;
+    color: #15291D;
+    font-family: 'Comfortaa', cursive;
+    font-size: 17px;
+    font-weight: bolder;
+    display: block;
+    margin: auto;
+}

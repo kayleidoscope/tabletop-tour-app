@@ -17,7 +17,8 @@ class Discover extends Component {
             age: null,
             games: [],
             submitSent: false,
-            infoBox: false
+            infoBox: false,
+            random: false
         }
     }
 
@@ -57,6 +58,12 @@ class Discover extends Component {
         })
     }
 
+    randomChanged = e => {
+        this.setState({
+            random: e.currentTarget.checked
+        })
+    }
+
     formatQueryParams(params) {
         const queryItems = Object.keys(params)
             .map(key => `${encodeURI(key)}=${encodeURI(params[key])}`);
@@ -71,11 +78,12 @@ class Discover extends Component {
         const lt_max_players = this.state.maxPlayers
         const gt_min_playtime = this.state.minPlaytime
         const lt_max_playtime = this.state.maxPlaytime
-        const gt_min_age = this.state.age
+        const min_age = this.state.age
+        const random = this.state.random
         // const fields = "id,name,min_players,max_players,min_playtime,max_playtime,min_age,description,categories,rules_url,year_published,images"
         const client_id = config.BGA_CLIENT_ID
 
-        const params = {client_id, name, fuzzy_match, gt_min_players, lt_max_players, gt_min_playtime, lt_max_playtime, gt_min_age}
+        const params = {client_id, name, fuzzy_match, gt_min_players, lt_max_players, gt_min_playtime, lt_max_playtime, min_age, random}
 
         for (const key in params) {
             if (!params[key]) {
@@ -122,11 +130,13 @@ class Discover extends Component {
 
     render() {
         return (
-            <section>
-                <h2>Discover</h2>
-                {!this.state.infoBox && <button onClick={this.expandInfoBox}>What is this page?</button>}
+            <section className="discover">
+                <div className="page-header">
+                    <h2>Discover</h2>
+                    {!this.state.infoBox && <button className="what-btn" onClick={this.expandInfoBox}>?</button>}
+                </div>
                 {this.state.infoBox && 
-                    <div>
+                    <div className="info-box">
                         <p>Use this page to search for games with the parameters below.</p>
                         <p>None of the parameters are required, so fill out as many or as few as you'd like. 
                         </p>
@@ -144,6 +154,7 @@ class Discover extends Component {
                     ageChanged={this.ageChanged}
                     minPlaytimeChanged={this.minPlaytimeChanged}
                     maxPlaytimeChanged={this.maxPlaytimeChanged}
+                    randomChanged={this.randomChanged}
                 />
                 {this.state.submitSent && <h3>Search Results</h3>}
                 {this.state.submitSent && <GamesList games={this.state.games} descriptions={true}/>}

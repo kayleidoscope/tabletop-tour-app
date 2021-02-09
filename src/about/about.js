@@ -7,7 +7,7 @@ class About extends Component {
     render() {
 
         return (
-            <section>
+            <section className="about">
                 <h2>About</h2>
                 <p>Tabletop Tour is the brainchild of software engineer Kay Holten.</p>
                 <p>One day, she realized how tired she was of having to remember all of the cool games she'd had seen advertisements for or had played.</p>
