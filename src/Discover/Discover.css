@@ -11,13 +11,13 @@
 
 .discover h2 {
     display: inline;
+    margin-right: 15px;
 }
 
 .discover .page-header {
-    width: 50%;
     margin: auto;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
 }
 

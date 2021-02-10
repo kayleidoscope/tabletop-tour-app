@@ -159,7 +159,7 @@ class Discover extends Component {
                     randomChanged={this.randomChanged}
                 />
                 {this.state.submitSent && <h3>Search Results</h3>}
-                {this.state.submitSent && <GamesList games={this.state.games} descriptions={true}/>}
+                {this.state.submitSent && <GamesList games={this.state.games} descriptions={true} className="results"/>}
                 {this.state.submitSent && this.state.games.length === 0 && <p>No games found. Try different search parameters.</p>}
             </section>
         )
