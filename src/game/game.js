@@ -4,6 +4,8 @@ import config from '../config'
 import Review from '../Review/Review'
 import AddReview from '../AddReview/AddReview'
 import Context from '../Context'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 
 class Game extends Component {
     static contextType = Context
@@ -391,7 +393,7 @@ class Game extends Component {
             <section className="game">
                 <div className="page-header">
                     <h2>{gameData.name}</h2>
-                    {!this.state.infoBox && <button className="what-btn" onClick={this.expandInfoBox}>?</button>}
+                    {!this.state.infoBox && <button className="what-btn" onClick={this.expandInfoBox}><FontAwesomeIcon className="what-btn-icon" icon={faQuestionCircle} aria-hidden="true" title="What is this page?" aria-label="What is this page?"/></button>}
                 </div>
                 {this.state.infoBox && 
                     <div className="info-box">
@@ -417,20 +419,24 @@ class Game extends Component {
                     </div>
                 </form>}
                 {!this.context.currentUserId && <p>Log in to track the games you've played!</p>}
-                <img src={gameData.medium_image ? gameData.medium_image : gameData.images.medium} alt={`${gameData.name} packaging`} />
-                <div className="fast-facts">
-                    <h3>Fast facts:</h3>
-                    <ul>
-                        <li>List price: {cost}</li>
-                        <li>Number of players: {gameData.min_players} to {gameData.max_players} people</li>
-                        <li>Minimum age: {gameData.min_age === 0 ? "Data not available." : gameData.min_age}</li>
-                        <li>Playtime: {gameData.min_playtime} to {gameData.max_playtime} minutes</li>
-                        {rules && <li><a href={rules} target="_blank" rel="noreferrer">Rules</a></li>}
-                        {!rules && <li>Rules data not available.</li>}
-                    </ul>
+                <div className="bigger-screen">
+                    <img src={gameData.medium_image ? gameData.medium_image : gameData.images.medium} alt={`${gameData.name} packaging`} />
+                    <div className="fast-facts">
+                        <h3>Fast facts:</h3>
+                        <ul>
+                            <li>List price: {cost}</li>
+                            <li>Number of players: {gameData.min_players} to {gameData.max_players} people</li>
+                            <li>Minimum age: {gameData.min_age === 0 ? "Data not available." : gameData.min_age}</li>
+                            <li>Playtime: {gameData.min_playtime} to {gameData.max_playtime} minutes</li>
+                            {rules && <li><a href={rules} target="_blank" rel="noreferrer">Rules</a></li>}
+                            {!rules && <li>Rules data not available.</li>}
+                        </ul>
+                </div>
                 </div>
                 <p>{description}</p>
+                {description.length === 0 && <p>Game description not available.</p>}
                 <h3>User reviews</h3>
+                {this.state.reviews.length === 0 && <p>This game has no reviews yet.</p>}
                 <ul>
                     {reviewComponents}
                 </ul>

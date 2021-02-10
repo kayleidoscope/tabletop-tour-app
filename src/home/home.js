@@ -6,7 +6,7 @@ import {Link, Redirect} from 'react-router-dom';
 import MyGamesMini from '../MyGamesMini/MyGamesMini'
 import config from '../config'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faBookmark, faPlay } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faBookmark, faPlay, faQuestionCircle, faSearch } from '@fortawesome/free-solid-svg-icons'
 
 class Home extends Component {
     static contextType = Context
@@ -15,14 +15,15 @@ class Home extends Component {
       super(props);
       this.state = {
           infoBox: false,
-          userReviews: []
+          userReviews: [],
+          reviewsFetched: false
       }
   }
 
   componentDidMount() {
+    const userFromStorage = JSON.parse(localStorage.getItem(`currentUser${config.CURRENT_VERSION}`)) ? JSON.parse(localStorage.getItem(`currentUser${config.CURRENT_VERSION}`)) : 1
     if(this.context.userGames.length === 0) {
       this.context.setAllGames()
-      const userFromStorage = JSON.parse(localStorage.getItem(`currentUser${config.CURRENT_VERSION}`)) ? JSON.parse(localStorage.getItem(`currentUser${config.CURRENT_VERSION}`)) : 1
       fetch(`${config.API_ENDPOINT}api/users-games?user_id=${userFromStorage.id}`, {
         method: 'GET',
         headers: {
@@ -41,27 +42,30 @@ class Home extends Component {
         .catch(error => {
           console.error(error)
         })
-      fetch(`${config.API_ENDPOINT}api/reviews?user_id=${userFromStorage.id}`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${config.API_TOKEN}`
-        }
-      })
-        .then(res => {
-          if(!res.ok) {
-            throw new Error(res.status)
+      }
+      if(!this.state.reviewsFetched) {
+        fetch(`${config.API_ENDPOINT}api/reviews?user_id=${userFromStorage.id}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${config.API_TOKEN}`
           }
-          return res.json()
         })
-        .then(responseJson => {
-          this.setState({
-            userReviews: responseJson
+          .then(res => {
+            if(!res.ok) {
+              throw new Error(res.status)
+            }
+            return res.json()
           })
-        })
-        .catch(error => {
-          console.error(error)
-        })
-    }
+          .then(responseJson => {
+            this.setState({
+              userReviews: responseJson,
+              reviewsFetched: true
+            })
+          })
+          .catch(error => {
+            console.error(error)
+          })
+      }
   }
 
   expandInfoBox = e => {
@@ -79,6 +83,12 @@ class Home extends Component {
   editReview = newReview => {  
     this.setState((state) => ({userReviews: state.userReviews.map(review => !(review.game_id === newReview.game_id && review.user_id === newReview.user_id) ? review : newReview)}))
   }
+
+  componentWillUnmount() {
+    this.setState({
+      reviewsFetched: false
+    })
+  }
     
     render() {
 
@@ -86,7 +96,8 @@ class Home extends Component {
             return <Redirect to="/" />
         }
 
-        if(!this.context.allGamesData.length) {
+        if(!this.context.allGamesData.length && !this.state.reviewsFetched) {
+          console.log('waiting for reviews')
           return null
         }
 
@@ -119,7 +130,7 @@ class Home extends Component {
             <section className="home">
                 <div className="page-header">
                   <h2>{this.context.currentUserName}'s Home</h2>
-                  {!this.state.infoBox && <button className="what-btn" onClick={this.expandInfoBox}>?</button>}
+                  {!this.state.infoBox && <button className="what-btn" onClick={this.expandInfoBox}><FontAwesomeIcon className="what-btn-icon" icon={faQuestionCircle} aria-hidden="true" title="What is this page?" aria-label="What is this page?"/></button>}
                 </div>
                 {this.state.infoBox && 
                     <div className="info-box">

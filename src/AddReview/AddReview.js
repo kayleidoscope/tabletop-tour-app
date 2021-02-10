@@ -97,7 +97,7 @@ class AddReview extends Component {
 
     render() {
         return (
-            <div>
+            <div className="add-review">
                 <h3>Review {this.props.gameName}</h3>
                 <form onSubmit={this.handleSubmit}>
                     <fieldset>
@@ -144,10 +144,8 @@ class AddReview extends Component {
                         />
                         <label htmlFor="5">5</label>
                     </fieldset>
-                    <br />
                     <label htmlFor="text">Review text: </label>
                     <textarea name="text" id="text" required  onChange = {e => this.reviewChanged(e.target.value)}/>
-                    <br />
                     <input type="submit" value="Submit" />
                 </form>
             </div>

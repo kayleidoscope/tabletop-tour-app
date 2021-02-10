@@ -1,6 +1,8 @@
 .search-fields {
     display: grid;
+    row-gap: 7px;
     grid-template-columns: 1fr 1fr;
+    padding: 5px;
 }
 
 .search-fields .random-text {

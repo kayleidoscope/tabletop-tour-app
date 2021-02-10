@@ -1,0 +1,13 @@
+.add-review textarea {
+    width: 100%;
+    height: 60px;
+}
+
+.add-review input[type=submit] {
+    margin: 10px auto;
+    display: block
+}
+
+.add-review fieldset {
+    margin-bottom: 10px;
+}

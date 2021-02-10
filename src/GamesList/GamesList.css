@@ -1,4 +1,4 @@
-.gamesList ul {
+.my-games ul {
     list-style-type: none;
     padding-left: 0;
 }
@@ -8,4 +8,30 @@
     padding: 15px;
     margin: 0 0 10px 0;
     text-align: center;
+}
+
+@media all and (min-width: 600px) {
+    .gamesItems {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media all and (min-width: 800px) {
+    .gamesItems {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media all and (min-width: 1000px) {
+    .gamesItems {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+@media all and (min-width: 1200px) {
+    .gamesItems {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
 }

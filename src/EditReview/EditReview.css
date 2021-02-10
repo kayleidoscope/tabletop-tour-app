@@ -11,3 +11,12 @@
     display: flex;
     justify-content: space-around;
 }
+
+.edit-review-form fieldset {
+    margin-bottom: 10px;
+}
+
+.edit-review-form input[type=submit] {
+    margin: auto;
+    display: block;
+}

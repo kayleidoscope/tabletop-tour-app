@@ -4,9 +4,14 @@
 }
 
 .gamesItem {
-    margin: 10px;
+    margin: 20px;
     border: 1px solid black;
+    background-color: white;
     padding: 5px;
+}
+
+.gamesItem li {
+    padding-top: 5px;
 }
 
 .gamesItem .imageAndInfo {
@@ -25,6 +30,8 @@
 .gamesItem .nodes {
     display: flex;
     justify-content: space-around;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .games-header {
@@ -33,4 +40,11 @@
 
 .games-header:hover {
     cursor: pointer;
+}
+
+.gamesItem h4 {
+    background-color: #D7EADB;
+    padding: 15px;
+    margin: 0 0 10px 0;
+    text-align: center;
 }

@@ -2,21 +2,26 @@
     width: 100%;
 }
 
+.game {
+    margin: 20px;
+}
+
 .game .page-header {
-    width: 80%;
     margin: auto;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     margin: 10px auto;
+    display: flex;
 }
 
 .game .what-btn {
-    margin: auto;
-    display: block;
+    display: inline;
 }
 
 .game h2 {
-    margin-bottom: 5px;
+    display: inline;
+    margin-right: 10px;
 }
 
 .game .info-box {
@@ -56,4 +61,19 @@
 .game ul {
     list-style-type: none;
     padding: 0;
+}
+
+@media all and (min-width: 600px) {
+    .game .bigger-screen {
+        display: flex;
+        align-items: center;
+    }
+
+    .game img {
+        margin-right: 20px;
+    }
+
+    .game .fast-facts {
+        height: 200px;
+    }
 }

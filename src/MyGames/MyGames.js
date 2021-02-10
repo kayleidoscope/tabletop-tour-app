@@ -3,6 +3,8 @@ import './MyGames.css'
 import GamesList from '../GamesList/GamesList'
 import Context from '../Context'
 import {Redirect} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart, faBookmark, faPlay, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 
 class MyGames extends Component {
     static contextType = Context
@@ -59,15 +61,17 @@ class MyGames extends Component {
         })
 
         return (
-            <section>
-                <h2>My Games Log</h2>
-                {!this.state.infoBox && <button onClick={this.expandInfoBox}>What is this page?</button>}
+            <section className="my-games">
+                <div className="page-header">
+                    <h2>My Games Log</h2>
+                    {!this.state.infoBox && <button onClick={this.expandInfoBox} className="what-btn"><FontAwesomeIcon className="what-btn-icon" icon={faQuestionCircle} aria-hidden="true" title="What is this page?" aria-label="What is this page?"/></button>}
+                </div>
                 {this.state.infoBox && 
-                    <div>
+                    <div className="info-box">
                         <p>Below you'll find two sections:</p>
-                        <p>My Games Closet contains games you've said that you have played or that you love.
-                        It will also contain games you've saved if you have already played them.</p>
-                        <p>My Dream Games contains games you've saved, but haven't played yet.</p>
+                        <p>My Games Closet contains games you've said that you have played (<FontAwesomeIcon icon={faPlay} />) or that you love (<FontAwesomeIcon icon={faHeart} />).
+                        It will also contain games you've bookmarked (<FontAwesomeIcon icon={faBookmark} />) if you have already played them.</p>
+                        <p>My Dream Games contains games you've bookmarked, but haven't played yet.</p>
                         <button onClick={this.collapseInfoBox}>Got it, thanks!</button>
                     </div>}
                 {/* <h3>Filter</h3>

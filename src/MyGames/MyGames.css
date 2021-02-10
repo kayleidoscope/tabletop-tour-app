@@ -1,0 +1,33 @@
+.my-games h2, .my-games h3 {
+    text-align: center;
+}
+
+.my-games h2 {
+    margin-right: 15px;
+}
+
+.my-games .page-header {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-games .info-box {
+    width: 80%;
+    font-size: 15px;
+    margin: auto;
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.my-games .info-box button {
+    background-color: #59A96A;
+    color: #15291D;
+    font-family: 'Comfortaa', cursive;
+    font-size: 17px;
+    font-weight: bolder;
+    display: block;
+    margin: auto;
+}

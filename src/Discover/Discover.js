@@ -3,6 +3,8 @@ import './Discover.css'
 import config from '../config'
 import SearchForm from '../SearchForm/SearchForm'
 import GamesList from '../GamesList/GamesList'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 
 class Discover extends Component {
     constructor(props) {
@@ -133,7 +135,7 @@ class Discover extends Component {
             <section className="discover">
                 <div className="page-header">
                     <h2>Discover</h2>
-                    {!this.state.infoBox && <button className="what-btn" onClick={this.expandInfoBox}>?</button>}
+                    {!this.state.infoBox && <button className="what-btn" onClick={this.expandInfoBox}><FontAwesomeIcon className="what-btn-icon" icon={faQuestionCircle} aria-hidden="true" title="What is this page?" aria-label="What is this page?"/></button>}
                 </div>
                 {this.state.infoBox && 
                     <div className="info-box">

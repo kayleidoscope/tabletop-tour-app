@@ -24,7 +24,7 @@ class GamesList extends Component {
         })
         return (
             <section className="gamesList">
-                <ul>
+                <ul className="gamesItems">
                     {gamesLis}
                 </ul>
             </section>

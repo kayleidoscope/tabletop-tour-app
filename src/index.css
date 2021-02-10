@@ -45,8 +45,7 @@ button, input[type=submit] {
 
 .what-btn {
   border-radius: 50%;
-  background-color: #59A96A;
-  color: #15291D;
+  background-color: #15291D;
   width: 32px;
   height: 32px;
   font-family: 'Comfortaa', cursive;
@@ -54,4 +53,9 @@ button, input[type=submit] {
   display: inline;
   font-weight: bolder;
   padding: 0;
+}
+
+.fa-question-circle {
+  color: #59A96A;
+  font-size: x-large;
 }
