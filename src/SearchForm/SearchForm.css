@@ -1,0 +1,14 @@
+.search-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.search-fields .random-text {
+    grid-column: span 2;
+    text-align: center
+}
+
+.search input[type=submit] {
+    margin: 15px auto;
+    display: block;
+}

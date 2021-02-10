@@ -5,6 +5,8 @@ import Context from '../Context'
 import {Link, Redirect} from 'react-router-dom';
 import MyGamesMini from '../MyGamesMini/MyGamesMini'
 import config from '../config'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart, faBookmark, faPlay } from '@fortawesome/free-solid-svg-icons'
 
 class Home extends Component {
     static contextType = Context
@@ -20,7 +22,6 @@ class Home extends Component {
   componentDidMount() {
     if(this.context.userGames.length === 0) {
       this.context.setAllGames()
-    }
       const userFromStorage = JSON.parse(localStorage.getItem(`currentUser${config.CURRENT_VERSION}`)) ? JSON.parse(localStorage.getItem(`currentUser${config.CURRENT_VERSION}`)) : 1
       fetch(`${config.API_ENDPOINT}api/users-games?user_id=${userFromStorage.id}`, {
         method: 'GET',
@@ -60,23 +61,24 @@ class Home extends Component {
         .catch(error => {
           console.error(error)
         })
+    }
   }
 
   expandInfoBox = e => {
     this.setState({
         infoBox: true
     })
-}
+  }
 
-collapseInfoBox = e => {
-    this.setState({
-        infoBox: false
-    })
-}
+  collapseInfoBox = e => {
+      this.setState({
+          infoBox: false
+      })
+  }
 
-editReview = newReview => {  
-  this.setState((state) => ({userReviews: state.userReviews.map(review => !(review.game_id === newReview.game_id && review.user_id === newReview.user_id) ? review : newReview)}))
-}
+  editReview = newReview => {  
+    this.setState((state) => ({userReviews: state.userReviews.map(review => !(review.game_id === newReview.game_id && review.user_id === newReview.user_id) ? review : newReview)}))
+  }
     
     render() {
 
@@ -84,7 +86,7 @@ editReview = newReview => {
             return <Redirect to="/" />
         }
 
-        if(!this.context.allGamesData) {
+        if(!this.context.allGamesData.length) {
           return null
         }
 
@@ -115,11 +117,14 @@ editReview = newReview => {
 
         return (
             <section className="home">
-                {!this.state.infoBox && <button onClick={this.expandInfoBox}>What is this page?</button>}
+                <div className="page-header">
+                  <h2>{this.context.currentUserName}'s Home</h2>
+                  {!this.state.infoBox && <button className="what-btn" onClick={this.expandInfoBox}>?</button>}
+                </div>
                 {this.state.infoBox && 
-                    <div>
+                    <div className="info-box">
                         <p>This page has two sections:</p>
-                        <p>My Games Log will display up to 10 games that you've saved, loved, or played. 
+                        <p>My Games Log will display up to 10 games that you've played <FontAwesomeIcon icon={faPlay} />, loved <FontAwesomeIcon icon={faHeart} />, or bookmarked <FontAwesomeIcon icon={faBookmark} /> . 
                         </p>
                         <p>You can click through My Games Log to see all of the games you've logged, including more detailed information.
                         </p>
@@ -127,13 +132,13 @@ editReview = newReview => {
                         <button onClick={this.collapseInfoBox}>Got it, thanks!</button>
                     </div>}
                 <Link to="/my-games">
-                    <h2>My Games Log</h2>
+                    <h3>My Games Log</h3>
                 </Link>
                 <ul className="mini-games">
                     {miniMyGames}
                 </ul>
-                <h2>My reviews</h2>
-                <ul>
+                <h3>My reviews</h3>
+                <ul className="reviews">
                     {reviewComponents}
                 </ul>
             </section>

@@ -1,6 +1,8 @@
 .my-games-mini .icons {
     display: flex;
     justify-content: space-around;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .my-games-mini {
@@ -9,12 +11,21 @@
     width: 50%;
     padding: 10px;
     margin: 10px auto;
+    background-color: white;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
 }
 
-.my-games-mini img {
+.mini-game-image {
     width: 100%;
+    flex: 2;
 }
 
 .my-games-mini .on {
     color: green
+}
+
+.my-games-mini .icons {
+    background-color: #D7EADB;
 }

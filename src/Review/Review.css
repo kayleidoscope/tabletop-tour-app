@@ -1,0 +1,21 @@
+.review {
+    width: 80%;
+    font-size: 15px;
+    margin: auto;
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.review .edit-btn {
+    display: inline;
+}
+
+.review .user-deets {
+    display: inline;
+}
+
+.review .deets-and-edit {
+    display: flex;
+    justify-content: space-between;
+}

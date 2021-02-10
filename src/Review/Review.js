@@ -61,11 +61,13 @@ class Review extends Component {
         const userSameAsReviewer = (userId === reviewData.user_id)
 
         return (
-            <li>
-                <p>{gameData.name}, {reviewData.rating} out of 5</p>
+            <li className="review">
+                <h4>{gameData.name}, {reviewData.rating} out of 5</h4>
                 <p>{reviewData.review}</p>
-                <p>{username}, {date}</p>
-                {userSameAsReviewer && !this.state.editReviewForm && <button onClick={this.showEditReviewForm}>Edit Review</button>}
+                <div className="deets-and-edit">
+                    <p className="user-deets">{username}, {date}</p>
+                    {userSameAsReviewer && !this.state.editReviewForm && <button className="edit-btn" onClick={this.showEditReviewForm}>Edit Review</button>}
+                </div>
                 {userSameAsReviewer && this.state.editReviewForm && <EditReview gameId={reviewData.game_id} rating={reviewData.rating} review={reviewData.review} editReview={this.props.editReview} hideEditReviewForm={this.hideEditReviewForm}/>}
             </li>
         )

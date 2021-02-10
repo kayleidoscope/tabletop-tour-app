@@ -1,3 +1,59 @@
 .game img {
     width: 100%;
 }
+
+.game .page-header {
+    width: 80%;
+    margin: auto;
+    justify-content: space-around;
+    text-align: center;
+    margin: 10px auto;
+}
+
+.game .what-btn {
+    margin: auto;
+    display: block;
+}
+
+.game h2 {
+    margin-bottom: 5px;
+}
+
+.game .info-box {
+    width: 80%;
+    font-size: 15px;
+    margin: auto;
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.game .info-box button {
+    background-color: #59A96A;
+    color: #15291D;
+    font-family: 'Comfortaa', cursive;
+    font-size: 17px;
+    font-weight: bolder;
+    display: block;
+    margin: auto;
+}
+
+.game .checkboxes {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+
+.game .fast-facts {
+    width: 70%;
+    font-size: 15px;
+    margin: 10px auto;
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.game ul {
+    list-style-type: none;
+    padding: 0;
+}

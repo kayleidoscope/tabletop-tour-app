@@ -25,7 +25,7 @@ class GamesItem extends Component {
 
         return (
             <li className="gamesItem">
-                <Link to={`/game/${gameData.id}`}>
+                <Link to={`/game/${gameData.id}`} className="games-header">
                     <h3>{gameData.name}</h3>
                 </Link>
                 <div className="imageAndInfo">

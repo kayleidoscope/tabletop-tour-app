@@ -64,8 +64,8 @@ class EditReview extends Component {
 
     render() {
         return (
-            <div>
-                <h3>Edit Review {this.props.gameName}</h3>
+            <div className="edit-review-form">
+                <h5>Edit Review {this.props.gameName}</h5>
                 <form onSubmit={this.handleSubmit}>
                     <fieldset>
                         <legend htmlFor="rating">Rating out of 5: </legend>
@@ -116,13 +116,13 @@ class EditReview extends Component {
                         />
                         <label htmlFor="5">5</label>
                     </fieldset>
-                    <br />
                     <label htmlFor="text">Review text: </label>
                     <textarea name="text" id="text" value={this.state.review} required  onChange = {e => this.reviewChanged(e.target.value)}/>
-                    <br />
-                    <input type="submit" value="Submit" />
+                    <div className="buttons">
+                        <input type="submit" value="Submit" />
+                        <button onClick={this.props.hideEditReviewForm}>Cancel</button>
+                    </div>
                 </form>
-                    <button onClick={this.props.hideEditReviewForm}>Cancel</button>
             </div>
         )
     }

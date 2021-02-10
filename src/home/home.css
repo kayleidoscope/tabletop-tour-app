@@ -1,3 +1,42 @@
 .home .mini-games {
     padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.home .page-header {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.home .info-box {
+    width: 80%;
+    font-size: 15px;
+    margin: auto;
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.home .info-box button {
+    background-color: #59A96A;
+    color: #15291D;
+    font-family: 'Comfortaa', cursive;
+    font-size: 17px;
+    font-weight: bolder;
+    display: block;
+    margin: auto;
+}
+
+.home h3 {
+    text-align: center;
+    
+}
+
+.home .reviews {
+    padding: 0;
+    list-style-type: none;
 }

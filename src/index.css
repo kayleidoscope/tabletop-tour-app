@@ -13,7 +13,7 @@ code {
     monospace;
 }
 
-p, a, button {
+p, a, button, label, legend {
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -21,12 +21,26 @@ h2, h3, h4, h5 {
   font-family: 'Comfortaa', cursive;
 }
 
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: #224431;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #59A96A;
+}
+
+
 button, input[type=submit] {
-  background-color: #5C415D;
   border: none;
   border-radius: 50px;
-  color: white;
+  font-family: 'Montserrat', sans-serif;
   padding: 15px;
+  background-color: #59A96A;
+  color: #15291D;
+  cursor: pointer;
 }
 
 .what-btn {

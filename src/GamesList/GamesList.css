@@ -2,3 +2,10 @@
     list-style-type: none;
     padding-left: 0;
 }
+
+.gamesList h3 {
+    background-color: #D7EADB;
+    padding: 15px;
+    margin: 0 0 10px 0;
+    text-align: center;
+}

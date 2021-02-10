@@ -1,0 +1,13 @@
+.edit-review-form textarea {
+    width: 100%;
+    height: 60px;
+}
+
+.edit-review-form h5{
+    font-size: 15px;
+}
+
+.edit-review-form .buttons {
+    display: flex;
+    justify-content: space-around;
+}

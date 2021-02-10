@@ -26,3 +26,11 @@
     display: flex;
     justify-content: space-around;
 }
+
+.games-header {
+    text-decoration: none;
+}
+
+.games-header:hover {
+    cursor: pointer;
+}

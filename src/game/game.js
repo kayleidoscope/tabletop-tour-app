@@ -389,10 +389,12 @@ class Game extends Component {
 
         return (
             <section className="game">
-                <h2>{gameData.name}</h2>
-                {!this.state.infoBox && <button onClick={this.expandInfoBox}>What is this page?</button>}
+                <div className="page-header">
+                    <h2>{gameData.name}</h2>
+                    {!this.state.infoBox && <button className="what-btn" onClick={this.expandInfoBox}>?</button>}
+                </div>
                 {this.state.infoBox && 
-                    <div>
+                    <div className="info-box">
                         <p>This page contains information on {gameData.name}.</p>
                         <p>If you are logged in, you can use this page to keep track of whether
                             you have played this game, love this game, or want to play this game.
@@ -400,26 +402,33 @@ class Game extends Component {
                         <p>You can also write reviews if you are logged in.</p>
                         <button onClick={this.collapseInfoBox}>Got it, thanks!</button>
                     </div>}
-{this.context.currentUserId &&                <form>
-                    <input type="checkbox" id="own" name="own" checked={this.state.played} onChange={this.handlePlayedChange}/>
-                    <label htmlFor="own">I've played this</label>
-                    <br />
-                    <input type="checkbox" id="love" name="love" checked={this.state.loved} onChange={this.handleLovedChange} />
-                    <label htmlFor="love">I love this</label>
-                    <br />
-                    <input type="checkbox" id="want" name="want"  checked={this.state.saved} onChange={this.handleSavedChange}/>
-                    <label htmlFor="want">I want to play this</label>
+{this.context.currentUserId &&                <form className="checkboxes">
+                    <div>
+                        <input type="checkbox" id="own" name="own" checked={this.state.played} onChange={this.handlePlayedChange}/>
+                        <label htmlFor="own">Played</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="love" name="love" checked={this.state.loved} onChange={this.handleLovedChange} />
+                        <label htmlFor="love">Love</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="want" name="want"  checked={this.state.saved} onChange={this.handleSavedChange}/>
+                        <label htmlFor="want">Want to play</label>
+                    </div>
                 </form>}
                 {!this.context.currentUserId && <p>Log in to track the games you've played!</p>}
                 <img src={gameData.medium_image ? gameData.medium_image : gameData.images.medium} alt={`${gameData.name} packaging`} />
-                <ul>
-                    <li>List price: {cost}</li>
-                    <li>Number of players: {gameData.min_players} to {gameData.max_players} people</li>
-                    <li>Minimum age: {gameData.min_age}</li>
-                    <li>Playtime: {gameData.min_playtime} to {gameData.max_playtime} minutes</li>
-                    {rules && <li><a href={rules} target="_blank" rel="noreferrer">Rules</a></li>}
-                    {!rules && <li>Rules data not available.</li>}
-                </ul>
+                <div className="fast-facts">
+                    <h3>Fast facts:</h3>
+                    <ul>
+                        <li>List price: {cost}</li>
+                        <li>Number of players: {gameData.min_players} to {gameData.max_players} people</li>
+                        <li>Minimum age: {gameData.min_age === 0 ? "Data not available." : gameData.min_age}</li>
+                        <li>Playtime: {gameData.min_playtime} to {gameData.max_playtime} minutes</li>
+                        {rules && <li><a href={rules} target="_blank" rel="noreferrer">Rules</a></li>}
+                        {!rules && <li>Rules data not available.</li>}
+                    </ul>
+                </div>
                 <p>{description}</p>
                 <h3>User reviews</h3>
                 <ul>
