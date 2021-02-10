@@ -41,6 +41,8 @@ button, input[type=submit] {
   background-color: #59A96A;
   color: #15291D;
   cursor: pointer;
+  -webkit-appearance:none;
+  opacity: 1
 }
 
 .what-btn {
