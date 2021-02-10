@@ -11,7 +11,7 @@ class Heading extends Component {
             <header>
                 <div className="text">
                     <h1>Tabletop Tour</h1>
-                    <p>Discover. Record. Play.</p>
+                    <p className="tagline">Discover. Log. Play.</p>
                 </div>
                 <Nav />
             </header>

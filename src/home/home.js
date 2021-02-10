@@ -6,7 +6,7 @@ import {Link, Redirect} from 'react-router-dom';
 import MyGamesMini from '../MyGamesMini/MyGamesMini'
 import config from '../config'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faBookmark, faPlay, faQuestionCircle, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faBookmark, faPlay, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 
 class Home extends Component {
     static contextType = Context

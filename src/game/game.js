@@ -190,6 +190,7 @@ class Game extends Component {
     }
 
     handleLovedChange = async(e) => {
+        console.log('handleLovedChange ran')
         this.setState({
             loved: e.currentTarget.checked
         })
@@ -256,6 +257,7 @@ class Game extends Component {
     }
 
     handlePlayedChange = async(e) => {
+        console.log('handlePlayedChange ran')
         this.setState({
             played: e.currentTarget.checked
         })
@@ -336,15 +338,16 @@ class Game extends Component {
         this.setState({
             saved: e.currentTarget.checked
         })
-
+        
         const bool = e.currentTarget.checked
-
+        
         const userGameData = this.context.userGames.find(game => game.game_id === this.props.match.params.id)
         
         if(!userGameData) {
             const localGameData = this.context.allGamesData.find(game => game.id === this.props.match.params.id)
             if(!localGameData) {
                 await this.addLocalGameData()
+                console.log("no userGameData found")
             }
             await this.addNewUserDataSave(bool)
         } else {
@@ -375,7 +378,11 @@ class Game extends Component {
 
         const description = gameData.description_preview || gameData.description
         const rules = gameData.rules_url || gameData.rules
-        const cost = gameData.msrp_test || gameData.msrp
+        const cost = gameData.msrp_text || gameData.msrp
+
+        let gameCost = cost !== "0" ? gameData.msrp_text || `$${gameData.msrp}` : "No data available."
+        let gameTime = gameData.min_playtime === gameData.max_playtime ? `Playtime: ${gameData.min_playtime} minutes` : `Playtime: ${gameData.min_playtime} to ${gameData.max_playtime} minutes`
+        let gamePlayers = gameData.min_players === gameData.max_players ? `Players: ${gameData.min_players} people` : `Players: ${gameData.min_players} to ${gameData.max_players} people`
 
         if (Object.keys(gameData).length === 0) {
             return null
@@ -424,10 +431,10 @@ class Game extends Component {
                     <div className="fast-facts">
                         <h3>Fast facts:</h3>
                         <ul>
-                            <li>List price: {cost}</li>
-                            <li>Number of players: {gameData.min_players} to {gameData.max_players} people</li>
+                            <li>List price: {gameCost}</li>
+                            <li>{gamePlayers}</li>
                             <li>Minimum age: {gameData.min_age === 0 ? "Data not available." : gameData.min_age}</li>
-                            <li>Playtime: {gameData.min_playtime} to {gameData.max_playtime} minutes</li>
+                            <li>{gameTime}</li>
                             {rules && <li><a href={rules} target="_blank" rel="noreferrer">Rules</a></li>}
                             {!rules && <li>Rules data not available.</li>}
                         </ul>

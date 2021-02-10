@@ -5,6 +5,7 @@
     background-color: white;
     padding: 15px;
     margin-bottom: 10px;
+    max-width: 500px;;
 }
 
 .review .edit-btn {

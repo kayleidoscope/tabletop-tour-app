@@ -43,7 +43,7 @@
     list-style-type: none;
 }
 
-@media all and (min-width: 400px) {
+@media all and (min-width: 500px) {
     .home .mini-games {
         grid-template-columns: 1fr 1fr 1fr;
     }
@@ -58,5 +58,7 @@
 @media all and (min-width: 1000px) {
     .home .mini-games {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        max-width: 1200px;
+        margin: auto;
     }
 }

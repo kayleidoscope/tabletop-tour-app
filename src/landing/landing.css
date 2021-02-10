@@ -1,6 +1,8 @@
 .landing .buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    max-width: 300px;
+    margin: auto;
 }
 
 .buttons button {
@@ -11,6 +13,7 @@
     margin: 20px;
     background-color:white;
     padding: 10px;
+    text-align: center;
 }
 
 .demobtn {

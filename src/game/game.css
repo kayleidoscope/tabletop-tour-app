@@ -64,9 +64,17 @@
 }
 
 @media all and (min-width: 600px) {
+    .game {
+        max-width: 900px;
+        margin: auto;
+        padding: 20px;
+    }
+
     .game .bigger-screen {
         display: flex;
         align-items: center;
+        max-width: 700px;
+        margin: auto;
     }
 
     .game img {
