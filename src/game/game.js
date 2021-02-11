@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './Game.css'
 import config from '../config'
 import Review from '../Review/Review'
+import {Link} from 'react-router-dom';
 import AddReview from '../AddReview/AddReview'
 import Context from '../Context'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -425,7 +426,7 @@ class Game extends Component {
                         <label htmlFor="want">Want to play</label>
                     </div>
                 </form>}
-                {!this.context.currentUserId && <p>Log in to track the games you've played!</p>}
+                {!this.context.currentUserId && <p><Link to="/">Log in</Link> to track the games you've played!</p>}
                 <div className="bigger-screen">
                     <img src={gameData.medium_image ? gameData.medium_image : gameData.images.medium} alt={`${gameData.name} packaging`} />
                     <div className="fast-facts">
@@ -453,9 +454,9 @@ class Game extends Component {
                     gameData={this.state.gameData}
                     addReview={this.addReview}
                 />}
-                {!this.context.currentUserId && <p>Log in to post a review!</p>}
+                {!this.context.currentUserId && <p><Link to="/">Log in</Link> to post a review!</p>}
                 {userReview && <div>
-                        <h3>Review {gameData.name}</h3>
+                        <h3>Review {gameData?.name}</h3>
                         <p>You've already reviewed this game, and may not write a second review.</p>
                         <p>Click the Edit Review link on your review to change your review.</p>
                     </div>}

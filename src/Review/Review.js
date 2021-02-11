@@ -62,8 +62,8 @@ class Review extends Component {
 
         return (
             <li className="review">
-                <h4>{gameData.name}, {reviewData.rating} out of 5</h4>
-                <p>{reviewData.review}</p>
+                <h4>{gameData?.name}, {reviewData?.rating} out of 5</h4>
+                <p>{reviewData?.review}</p>
                 <div className="deets-and-edit">
                     <p className="user-deets">{username}, {date}</p>
                     {userSameAsReviewer && !this.state.editReviewForm && <button className="edit-btn" onClick={this.showEditReviewForm}>Edit Review</button>}
