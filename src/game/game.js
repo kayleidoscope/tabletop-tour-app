@@ -23,6 +23,7 @@ class Game extends Component {
         }
     }
 
+    //handles the ? info box opening and closing
     expandInfoBox = e => {
         this.setState({
             infoBox: true
@@ -41,6 +42,7 @@ class Game extends Component {
 
         const gameData = this.context.allGamesData.find(game => game.id === gameId)
 
+        //if this game isn't stored in the local game data, find it from the Board Games Atlas API
         if (!gameData) {
             fetch(`${config.BGA_BASE_URL}/search?ids=${gameId}&client_id=${config.BGA_CLIENT_ID}`, {
                 method: 'GET'
@@ -56,15 +58,18 @@ class Game extends Component {
                     console.error(error)
                 })
         } else {
+            //if this game is in the local game data, add its data to state
             this.setState({
                 gameData
             })
         }
 
         if(gameData) {
+            //search for user stats on this game
             const gameStats = this.context.userGames.find(game => game.game_id === gameId)
 
             if (!gameStats){
+                //if there aren't any, end this if statement
                 return
             }
 
@@ -75,6 +80,7 @@ class Game extends Component {
             })
         }
 
+        //get reviews for thei game
         fetch(`${config.API_ENDPOINT}api/reviews?game_id=${gameId}`, {
             method: 'GET',
             headers: {
@@ -92,6 +98,7 @@ class Game extends Component {
                 console.error(error)
             })
         
+            //if userGames or allGamesData has been wiped from memory, grab it again now
             if(this.context.userGames.length === 0) {
                 this.context.setAllGames()
                 const userFromStorage = JSON.parse(localStorage.getItem(`currentUser${config.CURRENT_VERSION}`))
@@ -138,6 +145,7 @@ class Game extends Component {
             original_image: this.state.gameData.images.original
         }
 
+        //return this fetch so this function doesn't resolve a promise and can have ".this" chained to it
         return fetch(`${config.API_ENDPOINT}api/games`, {
             method: 'POST',
             headers: {
@@ -161,12 +169,15 @@ class Game extends Component {
             })
     }
 
+    //handles the fetch POST for when a user hasn't loved, liked, or saved this game yet
     addNewUserDataLove = (boolean) => {
         const newGameDataEntry = {
             user_id: this.context.currentUserId, 
             game_id: this.props.match.params.id,
             user_loved: boolean
         }
+
+        //return this fetch so this function doesn't resolve a promise and can have ".this" chained to it
         return fetch(`${config.API_ENDPOINT}api/users-games`, {
             method: 'POST',
             headers: {
@@ -190,22 +201,30 @@ class Game extends Component {
             })
     }
 
+    //handles it when the user checks or unchecks the Loved checkbox
     handleLovedChange = async(e) => {
-        console.log('handleLovedChange ran')
         this.setState({
             loved: e.currentTarget.checked
         })
 
+        //check user games to see if the user has already logged this game before
         const userGameData = this.context.userGames.find(game => game.game_id === this.props.match.params.id)
+
+        //save the boolean that the user just changed Loved to
         const bool = e.currentTarget.checked
 
+        //if the user has not logged this game before,...
         if(!userGameData) {
+            //...check to see if the game has been logged by anyone before...
             const localGameData = this.context.allGamesData.find(game => game.id === this.props.match.params.id)
             if(!localGameData) {
+                //...if it hasn't, add its data to the local games database
                 await this.addLocalGameData()
             }
+            //no matter what, then handle adding the new user game data
             await this.addNewUserDataLove(bool)
         } else {
+            //if the user has logged this game before, use a patch request to update it
             const loveChange = {user_loved: e.currentTarget.checked}
     
             fetch(`${config.API_ENDPOINT}api/users-games/${this.context.currentUserId}/${this.props.match.params.id}`, {
@@ -228,12 +247,15 @@ class Game extends Component {
         }
         }
 
+    //handles the fetch POST for when a user hasn't loved, liked, or saved this game yet
     addNewUserDataPlay = (boolean) => {
         const newGameDataEntry = {
             user_id: this.context.currentUserId, 
             game_id: this.props.match.params.id,
             user_played: boolean
         }
+
+        //return this fetch so this function doesn't resolve a promise and can have ".this" chained to it
         return fetch(`${config.API_ENDPOINT}api/users-games`, {
             method: 'POST',
             headers: {
@@ -257,22 +279,30 @@ class Game extends Component {
             })
     }
 
+    //handles it when the user checks or unchecks the Loved checkbox
     handlePlayedChange = async(e) => {
-        console.log('handlePlayedChange ran')
         this.setState({
             played: e.currentTarget.checked
         })
 
+        //check user games to see if the user has already logged this game before
         const userGameData = this.context.userGames.find(game => game.game_id === this.props.match.params.id)
+        
+        //save the boolean that the user just changed Played to
         const bool = e.currentTarget.checked
 
+        //if the user has not logged this game before,...
         if(!userGameData) {
+            //...check to see if the game has been logged by anyone before...
             const localGameData = this.context.allGamesData.find(game => game.id === this.props.match.params.id)
             if(!localGameData) {
+                //...if it hasn't, add its data to the local games database
                 await this.addLocalGameData()
             }
+            //no matter what, then handle adding the new user game data
             await this.addNewUserDataPlay(bool)
         } else {
+            //if the user has logged this game before, use a patch request to update it
             const playChange = {user_played: e.currentTarget.checked}
     
             fetch(`${config.API_ENDPOINT}api/users-games/${this.context.currentUserId}/${this.props.match.params.id}`, {
@@ -300,18 +330,21 @@ class Game extends Component {
         this.setState({
           reviews: [...this.state.reviews, newReview]
         })
-      }
+    }
 
-      editReview = newReview => {  
+    editReview = newReview => {  
         this.setState((state) => ({reviews: state.reviews.map(review => !(review.game_id === newReview.game_id && review.user_id === newReview.user_id) ? review : newReview)}))
-      }
+    }
 
+    //handles the fetch POST for when a user hasn't loved, liked, or saved this game yet
     addNewUserDataSave = (boolean) => {
         const newGameDataEntry = {
             user_id: this.context.currentUserId, 
             game_id: this.props.match.params.id,
             user_saved: boolean
         }
+
+        //return this fetch so this function doesn't resolve a promise and can have ".this" chained to it
         return fetch(`${config.API_ENDPOINT}api/users-games`, {
             method: 'POST',
             headers: {
@@ -335,23 +368,30 @@ class Game extends Component {
             })
     }
 
+    //handles it when the user checks or unchecks the Saved checkbox
     handleSavedChange = async(e) => {
         this.setState({
             saved: e.currentTarget.checked
         })
-        
+
+        //save the boolean that the user just changed Saved to
         const bool = e.currentTarget.checked
         
+        //check user games to see if the user has already logged this game before
         const userGameData = this.context.userGames.find(game => game.game_id === this.props.match.params.id)
         
+        //if the user has not logged this game before,...
         if(!userGameData) {
+            //...check to see if the game has been logged by anyone before...
             const localGameData = this.context.allGamesData.find(game => game.id === this.props.match.params.id)
             if(!localGameData) {
+                //...if it hasn't, add its data to the local games database
                 await this.addLocalGameData()
-                console.log("no userGameData found")
             }
+            //no matter what, then handle adding the new user game data
             await this.addNewUserDataSave(bool)
         } else {
+            //if the user has logged this game before, use a patch request to update it
             const saveChange = {user_saved: e.currentTarget.checked}
     
             fetch(`${config.API_ENDPOINT}api/users-games/${this.context.currentUserId}/${this.props.match.params.id}`, {
@@ -377,14 +417,17 @@ class Game extends Component {
     render() {
         const gameData = this.state.gameData
 
+        //these account for whether the data is being taken from the local database or the Board Games Atlas API
         const description = gameData.description_preview || gameData.description
         const rules = gameData.rules_url || gameData.rules
         const cost = gameData.msrp_text || gameData.msrp
 
+        //these account for if data comes in null
         let gameCost = cost !== "0" ? gameData.msrp_text || `$${gameData.msrp}` : "No data available."
         let gameTime = gameData.min_playtime === gameData.max_playtime ? `Playtime: ${gameData.min_playtime} minutes` : `Playtime: ${gameData.min_playtime} to ${gameData.max_playtime} minutes`
         let gamePlayers = gameData.min_players === gameData.max_players ? `Players: ${gameData.min_players} people` : `Players: ${gameData.min_players} to ${gameData.max_players} people`
 
+        //if no gameData has been brought over yet, don't render the page
         if (Object.keys(gameData).length === 0) {
             return null
         }

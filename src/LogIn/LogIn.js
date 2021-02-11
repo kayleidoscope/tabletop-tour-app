@@ -44,6 +44,7 @@ class LogIn extends Component {
                 return res.json()
             })
             .then(responseJson => {
+                //if the API call responds with a length of two, that means the user object was empty, and an error should be fired
                 if (JSON.stringify(responseJson).length === 2) {
                     this.setState({
                         error: true

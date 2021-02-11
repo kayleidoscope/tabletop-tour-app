@@ -16,6 +16,7 @@ class Review extends Component {
     }
 
     componentDidMount() {
+        //grab the user's data to get the username
         fetch(`${config.API_ENDPOINT}api/users/${this.props.reviewData.user_id}`, {
             method: 'GET',
             headers: {

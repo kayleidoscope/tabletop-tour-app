@@ -66,6 +66,7 @@ class Discover extends Component {
         })
     }
 
+    //formats query params in a way that can be affixed to the base url
     formatQueryParams(params) {
         const queryItems = Object.keys(params)
             .map(key => `${encodeURI(key)}=${encodeURI(params[key])}`);
@@ -82,20 +83,23 @@ class Discover extends Component {
         const lt_max_playtime = this.state.maxPlaytime
         const min_age = this.state.age
         const random = this.state.random
-        // const fields = "id,name,min_players,max_players,min_playtime,max_playtime,min_age,description,categories,rules_url,year_published,images"
         const client_id = config.BGA_CLIENT_ID
 
         const params = {client_id, name, fuzzy_match, gt_min_players, lt_max_players, gt_min_playtime, lt_max_playtime, min_age, random}
 
+        //if a field isn't being used in the search, remove it from the search
         for (const key in params) {
             if (!params[key]) {
                 delete params[key]
             }
         }
+
+        //if the name field isn't being used, remove fuzzy_match too
         if (!params.name) {
             delete params.fuzzy_match
         }
 
+        //create the string to add to the base url
         const queryString = this.formatQueryParams(params)
 
         fetch(`${config.BGA_BASE_URL}/search?${queryString}`, {
@@ -108,6 +112,7 @@ class Discover extends Component {
                 return res.json()
             })
             .then(responseJson => {
+                //add the list of games to state, and switch submitSent to true, triggering the Search Results list to appear
                 this.setState({
                     games: responseJson.games,
                     submitSent: true
@@ -118,6 +123,7 @@ class Discover extends Component {
             })
     }
 
+    //handles the question mark info box opening and closing
     expandInfoBox = e => {
         this.setState({
             infoBox: true

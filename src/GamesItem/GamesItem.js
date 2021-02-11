@@ -5,12 +5,14 @@ import './GamesItem.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faBookmark, faPlay } from '@fortawesome/free-solid-svg-icons'
 
+//creates a reusable GamesItem to go into the GamesList and be used in several places
 class GamesItem extends Component {
     static contextType = Context
 
     render() {
         let gameData = this.props.gameInfo
 
+        //these account for whether the game is coming from local storage or the Board Games Atlas API, and if fields come in null
         let gameImage = gameData.small_image || gameData.images.small
         let gameRules = gameData.rules_url || gameData.rules
         let gameCost = gameData.msrp_text || `$${gameData.msrp}`
@@ -18,10 +20,13 @@ class GamesItem extends Component {
         let gameTime = gameData.min_playtime === gameData.max_playtime ? `Playtime: ${gameData.min_playtime} minutes` : `Playtime: ${gameData.min_playtime} to ${gameData.max_playtime} minutes`
         let gamePlayers = gameData.min_players === gameData.max_players ? `Players: ${gameData.min_players} people` : `Players: ${gameData.min_players} to ${gameData.max_players} people`
 
+        //if no game data has come in, return nothing for now
         if (!gameData) {
             return null
         }
 
+        //this builds the play, heart, and bookmark icons that show if the game has been played, loved, or saved
+        //semantic aria-labels have been added to make sure the icons are accessible
         const myDataNodes = <div className="nodes">
                 {this.props.myData.user_played ? <FontAwesomeIcon icon={faPlay} aria-hidden="true" title="game played" className="on" aria-label="game played"/> : <FontAwesomeIcon  aria-hidden="true" title="not played" icon={faPlay}  aria-label="game not played"/>}
                 {this.props.myData.user_loved ? <FontAwesomeIcon icon={faHeart}  aria-hidden="true" title="game loved"className="on" aria-label="game loved"/> : <FontAwesomeIcon  aria-hidden="true" title="not loved" icon={faHeart} aria-label="game not loved" />}

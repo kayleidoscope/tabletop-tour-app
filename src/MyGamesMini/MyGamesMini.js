@@ -7,6 +7,7 @@ import { faHeart, faBookmark, faPlay } from '@fortawesome/free-solid-svg-icons'
 class MyGamesMini extends Component {
 
     render() {
+        //wait until gameData and usersGameData is available for this to render
         if(!this.props.gameData || !this.props.usersGamesData) {
             return null
         }

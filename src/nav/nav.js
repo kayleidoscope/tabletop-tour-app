@@ -31,6 +31,10 @@ class Nav extends Component {
         } else {
             userLoggedIn = false;
         }
+        //renders a dropdown menu
+        //if a user is not logged in, show the Log In button, which will take the user to the landing page
+        //if a user is logged in, show the Log OUt button, which will log the user out and send them to the landing page
+        //Log In also should not appear if the user is already on the landing page
         return (
             <nav className="dropdown">
                 <button className="dropbtn" onClick={this.handleMenuClick}>Menu</button>

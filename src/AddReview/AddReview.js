@@ -14,6 +14,7 @@ class AddReview extends Component {
         }
     }
 
+    //finds the data for the game that is being reviewed
     addLocalGameData() {
         const newGameEntry = this.props.gameData
 
@@ -32,6 +33,7 @@ class AddReview extends Component {
                 return res.json()
             })
             .then(responseJson => {
+                //adds the game to the allGamesData state on the app.js file
                 this.context.gameAdded(responseJson)
                 return
             })
@@ -40,6 +42,7 @@ class AddReview extends Component {
             })
     }
 
+    //handles the fetch to post the new review
     postNewReview = (newReview) => {
         fetch(`${config.API_ENDPOINT}api/reviews`, {
             method: 'POST',
@@ -56,7 +59,9 @@ class AddReview extends Component {
                 return res.json()
             })
             .then(responseJson => {
+                //adds the review to this user's reviews, stored in state on the app.js file
                 if (this.context.currentUserId) this.context.updateUsersReviews(responseJson)
+                //adds the review to whichever page the Add Review component is on right now, be it /games/:id or /home
                 this.props.addReview(responseJson)
             })
             .catch(error => {
@@ -66,8 +71,10 @@ class AddReview extends Component {
 
     handleSubmit = async(e) => {
         e.preventDefault()
+        //searches context for this game's data
         const localGameData = this.context.allGamesData.find(game => game.id === this.props.gameId)
 
+        //if this game has not been added to the local game data, do so
         if(!localGameData) {
             await this.addLocalGameData()
         }
@@ -79,6 +86,7 @@ class AddReview extends Component {
 
         const newReview = {user_id, game_id, review, rating}
 
+        //if there's no local game data, be sure to wait for it to finish before moving on to adding the new review
         await this.postNewReview(newReview)
 
     }

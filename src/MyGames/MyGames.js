@@ -17,6 +17,7 @@ class MyGames extends Component {
     }
 
     componentDidMount() {
+        //if user games and allGamesData has been wiped, grab it again
         if(this.context.allGamesData.length === 0) {
             this.context.setAllGames()
             this.context.getUserGames(this.context.currentUserId)

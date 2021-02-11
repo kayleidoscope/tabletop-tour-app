@@ -6,6 +6,7 @@ import config from '../config'
 class EditReview extends Component {
     static contextType = Context
 
+    //grab rating and review from props, where it will be passed down so the user will know what they're changing
     constructor(props) {
         super(props);
         this.state = {
@@ -15,13 +16,14 @@ class EditReview extends Component {
     }
 
     handleSubmit = e => {
-
         e.preventDefault()
 
+        //make sure rating comes in as a number, not a string
         const rating = parseInt(this.state.rating)
         const review = this.state.review
         const user_id = this.context.currentUserId
         const game_id = this.props.gameId
+        //make sure the review_posted value is in the correct time notation
         const review_posted = new Date(Date.now()).toISOString()
 
         const editedReview = {user_id, game_id, review, rating, review_posted}
@@ -40,12 +42,15 @@ class EditReview extends Component {
                 }
             })
             .then(noData => {
+                //update the user's review
                 this.context.updateUsersReviews(editedReview)
+                //add the edited review back to the page
                 this.props.editReview(editedReview)
             })
             .catch(error => {
                 console.error(error)
             })
+        //after the fetch is done, make the edit form go away again
         this.props.hideEditReviewForm()
     }
     

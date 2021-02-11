@@ -141,6 +141,7 @@ class App extends Component {
         })
   }
 
+  //this function actually works for both the demo log-out and the normal log-out and is used both ways in this app
   demoLogOut = (e) => {
     localStorage.removeItem(`currentUser${config.CURRENT_VERSION}`)
     this.setState({

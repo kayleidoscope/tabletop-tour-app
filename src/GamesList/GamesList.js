@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import './GamesList.css'
 import GamesItem from '../GamesItem/GamesItem'
 
+//a reusable list of games to be used throughout the site
 class GamesList extends Component {
     render() {
         let games = this.props.games
         let myGamesData = this.props.myData
 
-
+        //create <li>'s for each game
         let gamesLis = games.map((game, i) => {
             let myData = {}
             if (myGamesData) {

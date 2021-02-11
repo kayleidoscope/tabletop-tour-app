@@ -10,9 +10,7 @@ class Landing extends Component {
     static contextType = Context
 
     state = {
-        //when true, the logIn component will render
         logInBox: false,
-        //when true, the signUp component will render
         signUpBox: false,
         buttonsOn: true,
     }

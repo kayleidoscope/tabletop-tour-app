@@ -21,7 +21,9 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    //grabs user Id from local storage, using 1 (the demo user) if no user has been logged in
     const userFromStorage = JSON.parse(localStorage.getItem(`currentUser${config.CURRENT_VERSION}`)) ? JSON.parse(localStorage.getItem(`currentUser${config.CURRENT_VERSION}`)) : 1
+    //if games aren't in state or context, grab them
     if(this.context.userGames.length === 0) {
       this.context.setAllGames()
       fetch(`${config.API_ENDPOINT}api/users-games?user_id=${userFromStorage.id}`, {
@@ -43,6 +45,7 @@ class Home extends Component {
           console.error(error)
         })
       }
+      //same with reviews
       if(!this.state.reviewsFetched) {
         fetch(`${config.API_ENDPOINT}api/reviews?user_id=${userFromStorage.id}`, {
           method: 'GET',
@@ -84,6 +87,7 @@ class Home extends Component {
     this.setState((state) => ({userReviews: state.userReviews.map(review => !(review.game_id === newReview.game_id && review.user_id === newReview.user_id) ? review : newReview)}))
   }
 
+  //when this component is navigated away from, reset reviewsFetched to false to make sure that check happens again once the page is rendered
   componentWillUnmount() {
     this.setState({
       reviewsFetched: false
@@ -97,7 +101,6 @@ class Home extends Component {
         }
 
         if(!this.context.allGamesData.length && !this.state.reviewsFetched) {
-          console.log('waiting for reviews')
           return null
         }
 
