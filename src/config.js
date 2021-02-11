@@ -5,7 +5,7 @@ const config = {
     BGA_CLIENT_SECRET: process.env.REACT_APP_BGA_CLIENT_SECRET,
     BGA_BASE_URL: process.env.REACT_APP_BGA_BASE_URL,
     API_ENDPOINT: isDev ? process.env.REACT_APP_DEV_BASE_URL : process.env.REACT_APP_PROD_BASE_URL,
-    CURRENT_VERSION: 1,
+    CURRENT_VERSION: 2,
     API_TOKEN: isDev ? process.env.REACT_APP_DEV_API_TOKEN : process.env.REACT_APP_PROD_API_TOKEN
 }
 
