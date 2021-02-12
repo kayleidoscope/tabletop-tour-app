@@ -1,4 +1,4 @@
-# Tabletoup Tour
+# Tabletop Tour
 
 Tabletop Tour is a tool for tabletop games of all walks of life! Find games. Review games. Log games. It's all there.
 
